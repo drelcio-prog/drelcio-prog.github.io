@@ -12,10 +12,10 @@
 html,body{margin:0;padding:0;width:100%;overflow-x:hidden}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0b1210;color:#f3eee4;min-height:100dvh;padding:calc(12px + env(safe-area-inset-top)) 14px calc(24px + env(safe-area-inset-bottom))}
 .app{width:100%;max-width:430px;margin:0 auto}
-.top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.mark{width:40px;height:40px;border:0;border-radius:12px;background:#c9a227;color:#0b1210;font-weight:800}
-h1{margin:0;font-size:1.15rem}
-.tag{margin:2px 0 0;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:#b7c2bb}
+.top{display:flex;align-items:center;gap:10px;margin:2px 0 14px}
+.logo-k{width:44px;height:44px;object-fit:contain;flex:0 0 44px}
+.brand h1{margin:0;font-size:1.35rem;letter-spacing:-.03em}
+.tag{margin:2px 0 0;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:#9aa7a1}
 .card{background:linear-gradient(145deg,#10261e,#1a4333);border-radius:18px;padding:14px}
 .label{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
 .val{font-size:1.7rem;font-weight:800;margin:4px 0 10px}
@@ -47,8 +47,11 @@ label{display:grid;gap:4px;font-size:.75rem;color:#b7c2bb;margin:8px 0}
 <body>
 <div class="app">
   <div class="top">
-    <button class="mark" type="button">K</button>
-    <div><h1>Kashu</h1><p class="tag">Seu financeiro mais simples</p></div>
+    <img class="logo-k" alt="Kashu" src="logo-k.png">
+    <div class="brand">
+      <h1>Kashu</h1>
+      <p class="tag">Seu financeiro mais simples</p>
+    </div>
   </div>
   <div class="card">
     <div class="label">Saldo disponível</div>
@@ -108,12 +111,7 @@ function parseData(text){
   if(/ontem/.test(t)) return addDays(hojeISO(),-1);
   if(/amanha/.test(t)) return addDays(hojeISO(),1);
   const br=t.match(/(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?/);
-  if(br){
-    let y=br[3]?Number(br[3]):new Date().getFullYear();
-    if(y<100) y+=2000;
-    const z=n=>String(n).padStart(2,"0");
-    return y+"-"+z(br[2])+"-"+z(br[1]);
-  }
+  if(br){ let y=br[3]?Number(br[3]):new Date().getFullYear(); if(y<100) y+=2000; const z=n=>String(n).padStart(2,"0"); return y+"-"+z(br[2])+"-"+z(br[1]); }
   return hojeISO();
 }
 function load(){
