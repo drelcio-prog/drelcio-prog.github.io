@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Kashu" />
+  <title>Kashu</title>
+  <style>
+    :root { --bg:#0b1210; --card:#14201b; --ink:#f3eee4; --muted:#b7c2bb; --brand:#8fd4b4; --gold:#e0c15a; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:-apple-system,system-ui,sans-serif; background:var(--bg); color:var(--ink); }
+    .app { max-width:480px; margin:0 auto; padding:16px 16px 32px; }
+    h1 { margin:8px 0 4px; }
+    .tag { color:var(--muted); letter-spacing:.08em; font-size:.7rem; text-transform:uppercase; }
+    .card { background:linear-gradient(145deg,#10261e,#1a4333); border-radius:18px; padding:16px; margin:16px 0; }
+    .label { font-size:.72rem; opacity:.8; text-transform:uppercase; letter-spacing:.08em; }
+    .value { font-size:1.8rem; font-weight:700; margin:6px 0 10px; }
+    label, input, select, button, textarea { font:inherit; }
+    input, select, textarea { width:100%; background:#0b1210; color:var(--ink); border:1px solid #2a3d35; border-radius:12px; padding:10px 12px; }
+    label { display:grid; gap:4px; font-size:.78rem; color:var(--muted); margin:8px 0; }
+    .row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .btn { width:100%; border:0; border-radius:12px; padding:12px; font-weight:700; background:var(--brand); color:#0b1210; margin-top:8px; }
+    .hint { color:var(--muted); font-size:.82rem; }
+    .item { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #2a3d35; }
+    .ok { color:#4ade80; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <p class="tag">Seu financeiro mais simples</p>
+    <h1>Kashu</h1>
+    <div class="card">
+      <div class="label">Saldo disponível</div>
+      <div class="value" id="saldo">R$ 0,00</div>
+      <div class="row">
+        <div><span class="label">Recebido hoje</span><div id="rec">R$ 0,00</div></div>
+        <div><span class="label">Pago hoje</span><div id="pag">R$ 0,00</div></div>
+      </div>
+    </div>
+    <form id="f">
+      <label>Descrição <input name="descricao" required placeholder="Padaria, honorários…"></label>
+      <div class="row">
+        <label>Tipo
+          <select name="tipo">
+            <option value="debito">Despesa</option>
+            <option value="credito">Receita</option>
+          </select>
+        </label>
+        <label>Valor <input name="valor" type="number" step="0.01" min="0" required></label>
+      </div>
+      <label>Situação
+        <select name="pago">
+          <option value="1">Pago / Recebido</option>
+          <option value="0">Pendente</option>
+        </select>
+      </label>
+      <button class="btn" type="submit">Lançar</button>
+    </form>
+    <p class="hint">Dados ficam neste iPhone. No Safari: Compartilhar → Adicionar à Tela de Início.</p>
+    <div id="lista"></div>
+  </div>
+  <script>
+    const KEY = "kashu.pages.v1";
+    const brl = n => Number(n||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+    function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || {saldo:0, movs:[]}; } catch { return {saldo:0, movs:[]}; } }
+    function save(s){ localStorage.setItem(KEY, JSON.stringify(s)); }
+    function render(){
+      const s = load();
+      const hoje = new Date().toISOString().slice(0,10);
+      let rec=0,pag=0;
+      s.movs.forEach(m => {
+        if (m.pago && m.data === hoje) {
+          if (m.tipo==="credito") rec += m.valor; else pag += m.valor;
+        }
+      });
+      document.getElementById("saldo").textContent = brl(s.saldo);
+      document.getElementById("rec").textContent = brl(rec);
+      document.getElementById("pag").textContent = brl(pag);
+      document.getElementById("lista").innerHTML = s.movs.slice().reverse().slice(0,20).map(m =>
+        `<div class="item"><span>${m.descricao}</span><strong class="${m.tipo==="credito"?"ok":""}">${m.tipo==="credito"?"+":"−"} ${brl(m.valor)}</strong></div>`
+      ).join("");
+    }
+    document.getElementById("f").onsubmit = (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const tipo = fd.get("tipo");
+      const valor = Number(fd.get("valor"));
+      const pago = fd.get("pago")==="1";
+      const s = load();
+      s.movs.push({ descricao: fd.get("descricao"), tipo, valor, pago, data: new Date().toISOString().slice(0,10) });
+      if (pago) s.saldo += tipo==="credito" ? valor : -valor;
+      save(s); e.target.reset(); render();
+    };
+    render();
+  </script>
+</body>
+</html>
