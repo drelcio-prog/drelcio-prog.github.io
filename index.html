@@ -5,52 +5,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Kashu">
-<meta name="theme-color" content="#0b1210">
-<title>Kashu</title>
+<meta name="theme-color" content="#0b1210" id="metaTheme">
+<title>Kashu Grok</title>
 <style>
+:root{
+  --bg:#0b1210;--fg:#f3eee4;--muted:#9aa7a1;--hint:#b7c2bb;
+  --card:#10261e;--card2:#1a4333;--panel:#14201b;--seg:#1b2a24;
+  --line:#2a3d35;--field:#0b1210;--btn:#8fd4b4;--btnfg:#0b1210;
+  --mic:#1a5c44;--cred:#4ade80;--ghost:#1b2a24;
+}
+html.claro{
+  --bg:#f4f7f5;--fg:#12211b;--muted:#5b6b64;--hint:#5b6b64;
+  --card:#dceee4;--card2:#c5e2d3;--panel:#ffffff;--seg:#e3eee8;
+  --line:#c9d7d0;--field:#ffffff;--btn:#1a5c44;--btnfg:#fff;
+  --mic:#1a5c44;--cred:#0d7a45;--ghost:#e3eee8;
+}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;width:100%;overflow-x:hidden}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0b1210;color:#f3eee4;min-height:100dvh;padding:calc(12px + env(safe-area-inset-top)) 14px calc(24px + env(safe-area-inset-bottom))}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--fg);min-height:100dvh;padding:calc(12px + env(safe-area-inset-top)) 14px calc(24px + env(safe-area-inset-bottom))}
 .app{width:100%;max-width:430px;margin:0 auto}
 .top{display:flex;align-items:center;gap:10px;margin:2px 0 14px}
 .logo-k{width:48px;height:48px;flex:0 0 48px;display:block}
+.brand{flex:1}
 .brand h1{margin:0;font-size:1.35rem;letter-spacing:-.03em}
-.tag{margin:2px 0 0;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:#9aa7a1}
-.card{background:linear-gradient(145deg,#10261e,#1a4333);border-radius:18px;padding:14px}
+.tag{margin:2px 0 0;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tema{border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:999px;padding:8px 10px;font-size:.72rem;white-space:nowrap}
+.card{background:linear-gradient(145deg,var(--card),var(--card2));border-radius:18px;padding:14px}
 .label{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
 .val{font-size:1.7rem;font-weight:800;margin:4px 0 10px}
 .mini{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.mini div{background:rgba(255,255,255,.1);border-radius:12px;padding:8px}
+.mini div{background:rgba(127,127,127,.12);border-radius:12px;padding:8px}
 .mini span{display:block;font-size:.68rem;opacity:.8}
-.hint{font-size:.78rem;color:#b7c2bb;text-align:center;margin:10px 0}
-.seg{display:grid;grid-template-columns:1fr 1fr;background:#1b2a24;border-radius:14px;padding:4px;margin:8px 0}
-.seg button{border:0;background:transparent;color:#b7c2bb;border-radius:11px;padding:11px 8px}
-.seg button.on{background:#14201b;color:#f3eee4;font-weight:700}
+.hint{font-size:.78rem;color:var(--hint);text-align:center;margin:10px 0}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--seg);border-radius:14px;padding:4px;margin:8px 0}
+.seg button{border:0;background:transparent;color:var(--muted);border-radius:11px;padding:11px 8px}
+.seg button.on{background:var(--panel);color:var(--fg);font-weight:700}
 .micwrap{display:grid;place-items:center;padding:8px 0}
-.mic{width:92px;height:92px;border:0;border-radius:50%;background:#1a5c44;color:#fff;font-size:2rem}
+.mic{width:92px;height:92px;border:0;border-radius:50%;background:var(--mic);color:#fff;font-size:2rem}
 .mic.listen{background:#c44536}
 input,select,button{font:inherit;max-width:100%}
-input,select{width:100%;background:#0b1210;color:#f3eee4;border:1px solid #2a3d35;border-radius:12px;padding:12px;font-size:16px}
-label{display:grid;gap:4px;font-size:.75rem;color:#b7c2bb;margin:8px 0}
+input,select{width:100%;background:var(--field);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:16px}
+label{display:grid;gap:4px;font-size:.75rem;color:var(--hint);margin:8px 0}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.btn{width:100%;border:0;border-radius:12px;padding:14px;font-weight:700;background:#8fd4b4;color:#0b1210;margin-top:8px}
-.item{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;padding:12px 0;border-bottom:1px solid #2a3d35}
-.item small{display:block;color:#b7c2bb;font-size:.72rem;margin-top:3px}
-.cred{color:#4ade80}
-.panel{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);padding:12px;align-items:flex-end;z-index:20}
+.btn{width:100%;border:0;border-radius:12px;padding:14px;font-weight:700;background:var(--btn);color:var(--btnfg);margin-top:8px}
+.ghost{background:var(--ghost)!important;color:var(--fg)!important}
+.item{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;padding:12px 0;border-bottom:1px solid var(--line)}
+.item small{display:block;color:var(--hint);font-size:.72rem;margin-top:3px}
+.cred{color:var(--cred)}
+.panel{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);padding:12px;align-items:flex-end;z-index:20}
 .panel.open{display:flex}
-.sheet{width:100%;max-width:430px;margin:0 auto;background:#14201b;border-radius:20px;padding:14px;max-height:85dvh;overflow:auto}
+.sheet{width:100%;max-width:430px;margin:0 auto;background:var(--panel);border-radius:20px;padding:14px;max-height:85dvh;overflow:auto}
 .hide{display:none!important}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-.col{background:#14201b;border-radius:16px;padding:10px}
-.col h3{margin:0;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#9aa7a1}
+.col{background:var(--panel);border-radius:16px;padding:10px;border:1px solid var(--line)}
+.col h3{margin:0;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .col .tot{font-weight:800;margin:6px 0 8px;font-size:.95rem}
-.pitem{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;padding:8px 0;border-bottom:1px solid #2a3d35}
+.pitem{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;padding:8px 0;border-bottom:1px solid var(--line)}
 .pitem:last-child{border-bottom:0}
-.plus{width:28px;height:28px;border:0;border-radius:50%;background:#1a5c44;color:#fff;font-size:1.1rem;line-height:28px;padding:0;flex:0 0 28px}
-.checkrow{display:flex;align-items:center;gap:10px;margin:12px 0;color:#f3eee4}
-.checkrow input{width:22px;height:22px;accent-color:#8fd4b4}
-h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#9aa7a1;margin:18px 0 4px}
+.plus{width:28px;height:28px;border:0;border-radius:50%;background:var(--mic);color:#fff;font-size:1.1rem;line-height:28px;padding:0;flex:0 0 28px}
+.checkrow{display:flex;align-items:center;gap:10px;margin:12px 0;color:var(--fg)}
+.checkrow input{width:22px;height:22px;accent-color:var(--btn)}
+h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:18px 0 4px}
 </style>
 </head>
 <body>
@@ -73,6 +88,7 @@ h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#9aa
       <h1>Kashu</h1>
       <p class="tag">Seu financeiro mais simples</p>
     </div>
+    <button type="button" class="tema" id="temaBtn">Claro</button>
   </div>
   <div class="card">
     <div class="label">Saldo disponível</div>
@@ -130,7 +146,7 @@ h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#9aa
       <label>Data do lançamento<input name="dt" type="date" required></label>
       <label>Situação<select name="p"><option value="0" selected>Previsto</option><option value="1">Pago / Recebido</option></select></label>
       <button class="btn" type="submit">Confirmar</button>
-      <button class="btn" type="button" id="cancel" style="background:#1b2a24;color:#f3eee4">Cancelar</button>
+      <button class="btn ghost" type="button" id="cancel">Cancelar</button>
     </form>
   </div>
 </div>
@@ -141,11 +157,12 @@ h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#9aa
     <p class="hint" id="bxMeta"></p>
     <label class="checkrow"><input type="checkbox" id="bxCheck"> Dar baixa (pago / recebido)</label>
     <button class="btn" type="button" id="bxOk">Salvar</button>
-    <button class="btn" type="button" id="bxClose" style="background:#1b2a24;color:#f3eee4">Fechar</button>
+    <button class="btn ghost" type="button" id="bxClose">Fechar</button>
   </div>
 </div>
 <script>
 const KEY="kashu.pages.v2";
+const THEME="kashu.tema";
 const brl=n=>Number(n||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
 function uid(){return "k"+Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
@@ -153,6 +170,15 @@ function hojeISO(){const d=new Date();const z=n=>String(n).padStart(2,"0");retur
 function addDays(iso,n){const [y,m,d]=iso.split("-").map(Number);const x=new Date(y,m-1,d+n);const z=k=>String(k).padStart(2,"0");return x.getFullYear()+"-"+z(x.getMonth()+1)+"-"+z(x.getDate())}
 function fmtData(iso){if(!iso)return "";const [y,m,d]=iso.split("-");return d+"/"+m+"/"+y}
 function fold(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+function aplicarTema(t){
+  const claro=t==="claro";
+  document.documentElement.classList.toggle("claro",claro);
+  temaBtn.textContent=claro?"Escuro":"Claro";
+  metaTheme.setAttribute("content",claro?"#f4f7f5":"#0b1210");
+  localStorage.setItem(THEME,claro?"claro":"escuro");
+}
+temaBtn.onclick=()=>aplicarTema(document.documentElement.classList.contains("claro")?"escuro":"claro");
+aplicarTema(localStorage.getItem(THEME)||"escuro");
 function parseData(text){
   const t=fold(text);
   if(/ontem/.test(t)) return addDays(hojeISO(),-1);
