@@ -37,11 +37,20 @@ label{display:grid;gap:4px;font-size:.75rem;color:#b7c2bb;margin:8px 0}
 .item{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;padding:12px 0;border-bottom:1px solid #2a3d35}
 .item small{display:block;color:#b7c2bb;font-size:.72rem;margin-top:3px}
 .cred{color:#4ade80}
-.pend{opacity:.55}
 .panel{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);padding:12px;align-items:flex-end;z-index:20}
 .panel.open{display:flex}
 .sheet{width:100%;max-width:430px;margin:0 auto;background:#14201b;border-radius:20px;padding:14px;max-height:85dvh;overflow:auto}
 .hide{display:none!important}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.col{background:#14201b;border-radius:16px;padding:10px}
+.col h3{margin:0;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#9aa7a1}
+.col .tot{font-weight:800;margin:6px 0 8px;font-size:.95rem}
+.pitem{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;padding:8px 0;border-bottom:1px solid #2a3d35}
+.pitem:last-child{border-bottom:0}
+.plus{width:28px;height:28px;border:0;border-radius:50%;background:#1a5c44;color:#fff;font-size:1.1rem;line-height:28px;padding:0;flex:0 0 28px}
+.checkrow{display:flex;align-items:center;gap:10px;margin:12px 0;color:#f3eee4}
+.checkrow input{width:22px;height:22px;accent-color:#8fd4b4}
+h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#9aa7a1;margin:18px 0 4px}
 </style>
 </head>
 <body>
@@ -73,7 +82,7 @@ label{display:grid;gap:4px;font-size:.75rem;color:#b7c2bb;margin:8px 0}
       <div><span>Pago hoje</span><strong id="pag">R$ 0,00</strong></div>
     </div>
   </div>
-  <p class="hint">Cada lançamento grava a data. Diga “hoje” ou “ontem”, ou escolha no formulário.</p>
+  <p class="hint">Sem a palavra “pago” ou “recebido”, o lançamento entra como previsto. Dê baixa no +.</p>
   <div class="seg">
     <button type="button" id="tVoz" class="on">Por voz</button>
     <button type="button" id="tMan">Manual</button>
@@ -89,9 +98,23 @@ label{display:grid;gap:4px;font-size:.75rem;color:#b7c2bb;margin:8px 0}
       <label>Valor<input name="v" type="number" step="0.01" min="0" required inputmode="decimal"></label>
     </div>
     <label>Data do lançamento<input name="dt" type="date" required></label>
-    <label>Situação<select name="p"><option value="1">Pago / Recebido</option><option value="0">Pendente</option></select></label>
+    <label>Situação<select name="p"><option value="0" selected>Previsto</option><option value="1">Pago / Recebido</option></select></label>
     <button class="btn" type="submit">Lançar</button>
   </form>
+  <h2 class="sec">Previsto</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>Despesa</h3>
+      <div class="tot" id="totDesp">R$ 0,00</div>
+      <div id="colDesp"></div>
+    </div>
+    <div class="col">
+      <h3>Receita</h3>
+      <div class="tot cred" id="totRec">R$ 0,00</div>
+      <div id="colRec"></div>
+    </div>
+  </div>
+  <h2 class="sec">Realizado</h2>
   <div id="lista"></div>
 </div>
 <div class="panel" id="ov">
@@ -105,19 +128,31 @@ label{display:grid;gap:4px;font-size:.75rem;color:#b7c2bb;margin:8px 0}
         <label>Valor<input name="v" type="number" step="0.01" min="0" required inputmode="decimal"></label>
       </div>
       <label>Data do lançamento<input name="dt" type="date" required></label>
-      <label>Situação<select name="p"><option value="1" selected>Pago / Recebido</option><option value="0">Pendente</option></select></label>
+      <label>Situação<select name="p"><option value="0" selected>Previsto</option><option value="1">Pago / Recebido</option></select></label>
       <button class="btn" type="submit">Confirmar</button>
       <button class="btn" type="button" id="cancel" style="background:#1b2a24;color:#f3eee4">Cancelar</button>
     </form>
+  </div>
+</div>
+<div class="panel" id="baixa">
+  <div class="sheet">
+    <h3 style="margin:0 0 8px">Lançamento previsto</h3>
+    <p id="bxDesc" style="margin:0 0 4px"></p>
+    <p class="hint" id="bxMeta"></p>
+    <label class="checkrow"><input type="checkbox" id="bxCheck"> Dar baixa (pago / recebido)</label>
+    <button class="btn" type="button" id="bxOk">Salvar</button>
+    <button class="btn" type="button" id="bxClose" style="background:#1b2a24;color:#f3eee4">Fechar</button>
   </div>
 </div>
 <script>
 const KEY="kashu.pages.v2";
 const brl=n=>Number(n||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
+function uid(){return "k"+Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
 function hojeISO(){const d=new Date();const z=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate())}
 function addDays(iso,n){const [y,m,d]=iso.split("-").map(Number);const x=new Date(y,m-1,d+n);const z=k=>String(k).padStart(2,"0");return x.getFullYear()+"-"+z(x.getMonth()+1)+"-"+z(x.getDate())}
 function fmtData(iso){if(!iso)return "";const [y,m,d]=iso.split("-");return d+"/"+m+"/"+y}
+function fold(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
 function parseData(text){
   const t=fold(text);
   if(/ontem/.test(t)) return addDays(hojeISO(),-1);
@@ -130,21 +165,21 @@ function load(){
   try{
     const s=JSON.parse(localStorage.getItem(KEY))||{movs:[]};
     if(!Array.isArray(s.movs)) s.movs=[];
-    s.movs.forEach(m=>{ if(m.pago==null) m.pago=true; if(!m.data) m.data=hojeISO(); });
+    s.movs.forEach(m=>{ if(!m.id) m.id=uid(); if(!m.data) m.data=hojeISO(); });
     return s;
   }catch{return{movs:[]}}
 }
 function tot(s){
-  let saldo=0,rec=0,pag=0; const h=hojeISO();
+  let saldo=0,rec=0,pag=0,prevD=0,prevR=0; const h=hojeISO();
   s.movs.forEach(m=>{
-    const v=Number(m.valor)||0; if(!m.pago) return;
+    const v=Number(m.valor)||0;
+    if(!m.pago){ if(m.tipo==="credito") prevR+=v; else prevD+=v; return; }
     saldo += m.tipo==="credito"?v:-v;
     if(m.data===h){ if(m.tipo==="credito") rec+=v; else pag+=v; }
   });
-  s.saldo=saldo; return {saldo,rec,pag};
+  s.saldo=saldo; return {saldo,rec,pag,prevD,prevR};
 }
 function save(s){ tot(s); localStorage.setItem(KEY,JSON.stringify(s)); }
-function fold(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
 function parseValor(text){
   const t=fold(text).replace(/reais?/g," ").replace(/r\$/g," ");
   const m=t.match(/(\d{1,3}(?:\.\d{3})+,\d{1,2}|\d+,\d{1,2}|\d+\.\d{1,2}|\d+)/);
@@ -154,25 +189,60 @@ function parseValor(text){
   const n=Number(raw); return Number.isFinite(n)?n:null;
 }
 function parseTipo(text){const t=fold(text); if(/credito|receita|recebi|receber|honorario/.test(t)) return "credito"; return "debito"}
-function parsePago(text){const t=fold(text); if(/pendente|a pagar|a receber/.test(t)) return false; return true}
-function parseDesc(text){return String(text||"").replace(/lancar|lance/ig,"").replace(/\b(debito|credito|despesa|receita|pago|recebido|pendente|hoje|ontem|amanha|reais?|como)\b/ig,"").replace(/\d[\d.,]*/g,"").replace(/\s+/g," ").trim()||"Lançamento"}
+function parsePago(text){
+  const t=fold(text);
+  if(/pendente|previsto|a pagar|a receber/.test(t)) return false;
+  return /\b(pago|paguei|pagou|recebido|recebi)\b/.test(t);
+}
+function parseDesc(text){return String(text||"").replace(/lancar|lance/ig,"").replace(/\b(debito|credito|despesa|receita|pago|recebido|pendente|previsto|hoje|ontem|amanha|reais?|como)\b/ig,"").replace(/\d[\d.,]*/g,"").replace(/\s+/g," ").trim()||"Lançamento"}
 function ehSaldo(t){return /saldo/.test(fold(t)) && /qual|quanto|meu|disponivel/.test(fold(t))}
 function render(){
   const s=load(); const t=tot(s); save(s);
   saldo.textContent=brl(t.saldo); rec.textContent=brl(t.rec); pag.textContent=brl(t.pag);
-  lista.innerHTML=s.movs.slice().reverse().slice(0,40).map(m=>`<div class="item ${m.pago?"":"pend"}"><span>${m.descricao}${m.pago?"":" (pendente)"}<small>${fmtData(m.data)}</small></span><strong class="${m.tipo==="credito"?"cred":""}">${m.tipo==="credito"?"+":"\u2212"} ${brl(m.valor)}</strong></div>`).join("");
+  totDesp.textContent=brl(t.prevD); totRec.textContent=brl(t.prevR);
+  const pend=s.movs.filter(m=>!m.pago);
+  const ok=s.movs.filter(m=>m.pago);
+  colDesp.innerHTML=pend.filter(m=>m.tipo!=="credito").slice().reverse().map(rowPrev).join("")||"<p class='hint'>Nenhuma</p>";
+  colRec.innerHTML=pend.filter(m=>m.tipo==="credito").slice().reverse().map(rowPrev).join("")||"<p class='hint'>Nenhuma</p>";
+  lista.innerHTML=ok.slice().reverse().slice(0,40).map(m=>`<div class="item"><span>${m.descricao}<small>${fmtData(m.data)}</small></span><strong class="${m.tipo==="credito"?"cred":""}">${m.tipo==="credito"?"+":"\u2212"} ${brl(m.valor)}</strong></div>`).join("");
+}
+function rowPrev(m){
+  return `<div class="pitem"><div><div>${m.descricao}</div><small>${fmtData(m.data)} · ${brl(m.valor)}</small></div><button class="plus" type="button" data-id="${m.id}" aria-label="Abrir">+</button></div>`;
 }
 function gravar(o){
   const s=load();
-  s.movs.push({descricao:o.d,tipo:o.t,valor:Number(o.v)||0,pago:!!o.p,data:o.dt||hojeISO()});
+  s.movs.push({id:uid(),descricao:o.d,tipo:o.t,valor:Number(o.v)||0,pago:!!o.p,data:o.dt||hojeISO()});
   save(s); render();
+}
+function abrirBaixa(id){
+  const m=load().movs.find(x=>x.id===id); if(!m) return;
+  baixa.dataset.id=id;
+  bxDesc.textContent=m.descricao;
+  bxMeta.textContent=fmtData(m.data)+" · "+(m.tipo==="credito"?"Receita":"Despesa")+" · "+brl(m.valor);
+  bxCheck.checked=false;
+  baixa.classList.add("open");
 }
 boxMan.dt.value=hojeISO();
 tVoz.onclick=()=>{tVoz.classList.add("on");tMan.classList.remove("on");boxVoz.classList.remove("hide");boxMan.classList.add("hide")};
 tMan.onclick=()=>{tMan.classList.add("on");tVoz.classList.remove("on");boxMan.classList.remove("hide");boxVoz.classList.add("hide"); boxMan.dt.value=hojeISO()};
-boxMan.onsubmit=e=>{e.preventDefault();const fd=new FormData(boxMan);gravar({d:fd.get("d"),t:fd.get("t"),v:fd.get("v"),p:fd.get("p")==="1",dt:fd.get("dt")});boxMan.reset();boxMan.dt.value=hojeISO()};
+boxMan.onsubmit=e=>{e.preventDefault();const fd=new FormData(boxMan);gravar({d:fd.get("d"),t:fd.get("t"),v:fd.get("v"),p:fd.get("p")==="1",dt:fd.get("dt")});boxMan.reset();boxMan.dt.value=hojeISO();boxMan.p.value="0"};
 cancel.onclick=()=>ov.classList.remove("open");
 rev.onsubmit=e=>{e.preventDefault();const fd=new FormData(rev);gravar({d:fd.get("d"),t:fd.get("t"),v:fd.get("v"),p:fd.get("p")==="1",dt:fd.get("dt")});ov.classList.remove("open")};
+bxClose.onclick=()=>baixa.classList.remove("open");
+bxOk.onclick=()=>{
+  const id=baixa.dataset.id;
+  if(bxCheck.checked){
+    const s=load();
+    const m=s.movs.find(x=>x.id===id);
+    if(m){ m.pago=true; m.data=m.data||hojeISO(); }
+    save(s); render();
+  }
+  baixa.classList.remove("open");
+};
+document.addEventListener("click",e=>{
+  const b=e.target.closest(".plus"); if(!b) return;
+  abrirBaixa(b.dataset.id);
+});
 function falar(txt){try{const u=new SpeechSynthesisUtterance(txt);u.lang="pt-BR";speechSynthesis.speak(u)}catch(e){}}
 function abrir(txt){
   if(ehSaldo(txt)){ const t=tot(load()); tr.textContent="Saldo disponível: "+brl(t.saldo); falar("Saldo disponível "+brl(t.saldo)); return; }
