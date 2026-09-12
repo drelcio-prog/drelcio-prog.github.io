@@ -12,11 +12,11 @@
 html,body{margin:0;padding:0;width:100%;max-width:100%;overflow-x:hidden}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0b1210;color:#f3eee4;min-height:100dvh;padding:calc(12px + env(safe-area-inset-top)) 14px calc(24px + env(safe-area-inset-bottom))}
 .app{width:100%;max-width:430px;margin:0 auto}
-.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
-.mark{width:40px;height:40px;border:0;border-radius:12px;background:#c9a227;color:#0b1210;font-weight:800;font-size:1.1rem}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.mark{width:40px;height:40px;border:0;border-radius:12px;background:#c9a227;color:#0b1210;font-weight:800}
 h1{margin:0;font-size:1.15rem}
 .tag{margin:2px 0 0;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:#b7c2bb}
-.card{background:linear-gradient(145deg,#10261e,#1a4333);border-radius:18px;padding:14px;width:100%}
+.card{background:linear-gradient(145deg,#10261e,#1a4333);border-radius:18px;padding:14px}
 .label{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
 .val{font-size:1.7rem;font-weight:800;margin:4px 0 10px}
 .mini{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -24,31 +24,30 @@ h1{margin:0;font-size:1.15rem}
 .mini span{display:block;font-size:.68rem;opacity:.8}
 .hint{font-size:.78rem;color:#b7c2bb;text-align:center;margin:10px 0}
 .seg{display:grid;grid-template-columns:1fr 1fr;background:#1b2a24;border-radius:14px;padding:4px;margin:8px 0}
-.seg button{border:0;background:transparent;color:#b7c2bb;border-radius:11px;padding:11px 8px;font-size:.9rem}
+.seg button{border:0;background:transparent;color:#b7c2bb;border-radius:11px;padding:11px 8px}
 .seg button.on{background:#14201b;color:#f3eee4;font-weight:700}
 .micwrap{display:grid;place-items:center;padding:8px 0}
 .mic{width:92px;height:92px;border:0;border-radius:50%;background:#1a5c44;color:#fff;font-size:2rem}
 .mic.listen{background:#c44536}
-form,input,select,button{font:inherit;max-width:100%}
+input,select,button{font:inherit;max-width:100%}
 input,select{width:100%;background:#0b1210;color:#f3eee4;border:1px solid #2a3d35;border-radius:12px;padding:12px;font-size:16px}
 label{display:grid;gap:4px;font-size:.75rem;color:#b7c2bb;margin:8px 0}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .btn{width:100%;border:0;border-radius:12px;padding:14px;font-weight:700;background:#8fd4b4;color:#0b1210;margin-top:8px}
 .item{display:flex;justify-content:space-between;gap:8px;padding:12px 0;border-bottom:1px solid #2a3d35}
 .cred{color:#4ade80}
+.pend{opacity:.55}
 .panel{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);padding:12px;align-items:flex-end;z-index:20}
 .panel.open{display:flex}
-.sheet{width:100%;max-width:430px;margin:0 auto;background:#14201b;border-radius:20px;padding:14px;max-height:85dvh;overflow:auto}
+.sheet{width:100%;max-width:430px;margin:0 auto;background:#14201b;border-radius:20px;padding:14px}
 .hide{display:none!important}
 </style>
 </head>
 <body>
 <div class="app">
   <div class="top">
-    <div style="display:flex;gap:10px;align-items:center;min-width:0">
-      <button class="mark" type="button">K</button>
-      <div><h1>Kashu</h1><p class="tag">Seu financeiro mais simples</p></div>
-    </div>
+    <button class="mark" type="button">K</button>
+    <div><h1>Kashu</h1><p class="tag">Seu financeiro mais simples</p></div>
   </div>
   <div class="card">
     <div class="label">Saldo disponível</div>
@@ -58,17 +57,17 @@ label{display:grid;gap:4px;font-size:.75rem;color:#b7c2bb;margin:8px 0}
       <div><span>Pago hoje</span><strong id="pag">R$ 0,00</strong></div>
     </div>
   </div>
-  <p class="hint">Toque no microfone e fale. Ex.: “débito padaria 31 reais pago hoje”.</p>
+  <p class="hint">Lançamento efetivo atualiza o saldo na hora. Diga “pendente” só se ainda não pagou.</p>
   <div class="seg">
     <button type="button" id="tVoz" class="on">Por voz</button>
     <button type="button" id="tMan">Manual</button>
   </div>
   <div id="boxVoz">
-    <div class="micwrap"><button class="mic" id="mic" type="button" aria-label="Lançar por voz">🎤</button></div>
-    <p class="hint" id="tr">Toque no microfone para lançar por voz</p>
+    <div class="micwrap"><button class="mic" id="mic" type="button">🎤</button></div>
+    <p class="hint" id="tr">Toque no microfone</p>
   </div>
   <form id="boxMan" class="hide">
-    <label>Descrição<input name="d" required placeholder="Padaria"></label>
+    <label>Descrição<input name="d" required></label>
     <div class="g2">
       <label>Tipo<select name="t"><option value="debito">Despesa</option><option value="credito">Receita</option></select></label>
       <label>Valor<input name="v" type="number" step="0.01" min="0" required inputmode="decimal"></label>
@@ -80,7 +79,7 @@ label{display:grid;gap:4px;font-size:.75rem;color:#b7c2bb;margin:8px 0}
 </div>
 <div class="panel" id="ov">
   <div class="sheet">
-    <h3 style="margin:0 0 8px">Revisar voz</h3>
+    <h3 style="margin:0 0 8px">Revisar</h3>
     <p class="hint" id="ovTxt"></p>
     <form id="rev">
       <label>Descrição<input name="d" required></label>
@@ -88,8 +87,8 @@ label{display:grid;gap:4px;font-size:.75rem;color:#b7c2bb;margin:8px 0}
         <label>Tipo<select name="t"><option value="debito">Despesa</option><option value="credito">Receita</option></select></label>
         <label>Valor<input name="v" type="number" step="0.01" min="0" required inputmode="decimal"></label>
       </div>
-      <label>Situação<select name="p"><option value="1">Pago / Recebido</option><option value="0">Pendente</option></select></label>
-      <button class="btn" type="submit">Confirmar lançamento</button>
+      <label>Situação<select name="p"><option value="1" selected>Pago / Recebido</option><option value="0">Pendente</option></select></label>
+      <button class="btn" type="submit">Confirmar</button>
       <button class="btn" type="button" id="cancel" style="background:#1b2a24;color:#f3eee4">Cancelar</button>
     </form>
   </div>
@@ -98,8 +97,26 @@ label{display:grid;gap:4px;font-size:.75rem;color:#b7c2bb;margin:8px 0}
 const KEY="kashu.pages.v2";
 const brl=n=>Number(n||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
-function load(){try{return JSON.parse(localStorage.getItem(KEY))||{saldo:0,movs:[]}}catch{return{saldo:0,movs:[]}}}
-function save(s){localStorage.setItem(KEY,JSON.stringify(s))}
+function load(){
+  try{
+    const s=JSON.parse(localStorage.getItem(KEY))||{movs:[]};
+    if(!Array.isArray(s.movs)) s.movs=[];
+    s.movs.forEach(m=>{ if(m.pago==null) m.pago=true; });
+    return s;
+  }catch{return{movs:[]}}
+}
+function tot(s){
+  let saldo=0,rec=0,pag=0;
+  const hoje=new Date().toISOString().slice(0,10);
+  s.movs.forEach(m=>{
+    const v=Number(m.valor)||0;
+    if(!m.pago) return;
+    saldo += m.tipo==="credito"?v:-v;
+    if(m.data===hoje){ if(m.tipo==="credito") rec+=v; else pag+=v; }
+  });
+  s.saldo=saldo; return {saldo,rec,pag};
+}
+function save(s){ tot(s); localStorage.setItem(KEY,JSON.stringify(s)); }
 function fold(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
 function parseValor(text){
   const t=fold(text).replace(/reais?/g," ").replace(/r\$/g," ");
@@ -108,26 +125,47 @@ function parseValor(text){
   let raw=m[1];
   if(raw.includes(",")&&raw.includes(".")) raw=raw.replace(/\./g,"").replace(",",".");
   else if(raw.includes(",")) raw=raw.replace(",",".");
-  const n=Number(raw);return Number.isFinite(n)?n:null;
+  const n=Number(raw); return Number.isFinite(n)?n:null;
 }
-function parseTipo(text){const t=fold(text);return /credito|receita|recebi|receber/.test(t)?"credito":"debito"}
-function parsePago(text,tipo){const t=fold(text);if(/pendente|a pagar|a receber/.test(t))return false;return tipo==="credito"?/recebido/.test(t):/pago|paguei/.test(t)}
-function parseDesc(text){return String(text||"").replace(/lancar/ig,"").replace(/\b(debito|credito|despesa|receita|pago|recebido|pendente|hoje|reais?)\b/ig,"").replace(/\d[\d.,]*/g,"").replace(/\s+/g," ").trim()||"Lançamento por voz"}
+function parseTipo(text){const t=fold(text); if(/credito|receita|recebi|receber|honorario/.test(t)) return "credito"; return "debito"}
+function parsePago(text){const t=fold(text); if(/pendente|a pagar|a receber/.test(t)) return false; return true}
+function parseDesc(text){return String(text||"").replace(/lancar|lance/ig,"").replace(/\b(debito|credito|despesa|receita|pago|recebido|pendente|hoje|reais?|como)\b/ig,"").replace(/\d[\d.,]*/g,"").replace(/\s+/g," ").trim()||"Lançamento"}
+function ehSaldo(t){return /saldo/.test(fold(t)) && /qual|quanto|meu|disponivel/.test(fold(t))}
 function render(){
-  const s=load();const hoje=new Date().toISOString().slice(0,10);
-  let rec=0,pag=0;
-  s.movs.forEach(m=>{if(m.pago&&m.data===hoje){if(m.tipo==="credito")rec+=m.valor;else pag+=m.valor}});
-  saldo.textContent=brl(s.saldo);rec.textContent=brl(rec);pag.textContent=brl(pag);
-  lista.innerHTML=s.movs.slice().reverse().slice(0,30).map(m=>`<div class="item"><span>${m.descricao}</span><strong class="${m.tipo==="credito"?"cred":""}">${m.tipo==="credito"?"+":"\u2212"} ${brl(m.valor)}</strong></div>`).join("");
+  const s=load(); const t=tot(s); save(s);
+  saldo.textContent=brl(t.saldo); rec.textContent=brl(t.rec); pag.textContent=brl(t.pag);
+  lista.innerHTML=s.movs.slice().reverse().slice(0,40).map(m=>`<div class="item ${m.pago?"":"pend"}"><span>${m.descricao}${m.pago?"":" (pendente)"}</span><strong class="${m.tipo==="credito"?"cred":""}">${m.tipo==="credito"?"+":"\u2212"} ${brl(m.valor)}</strong></div>`).join("");
 }
-function gravar(o){const s=load();s.movs.push({descricao:o.d,tipo:o.t,valor:Number(o.v),pago:o.p,data:new Date().toISOString().slice(0,10)});if(o.p)s.saldo+=o.t==="credito"?Number(o.v):-Number(o.v);save(s);render()}
+function gravar(o){
+  const s=load();
+  s.movs.push({descricao:o.d,tipo:o.t,valor:Number(o.v)||0,pago:!!o.p,data:new Date().toISOString().slice(0,10)});
+  save(s); render();
+}
 tVoz.onclick=()=>{tVoz.classList.add("on");tMan.classList.remove("on");boxVoz.classList.remove("hide");boxMan.classList.add("hide")};
 tMan.onclick=()=>{tMan.classList.add("on");tVoz.classList.remove("on");boxMan.classList.remove("hide");boxVoz.classList.add("hide")};
 boxMan.onsubmit=e=>{e.preventDefault();const fd=new FormData(boxMan);gravar({d:fd.get("d"),t:fd.get("t"),v:fd.get("v"),p:fd.get("p")==="1"});boxMan.reset()};
 cancel.onclick=()=>ov.classList.remove("open");
 rev.onsubmit=e=>{e.preventDefault();const fd=new FormData(rev);gravar({d:fd.get("d"),t:fd.get("t"),v:fd.get("v"),p:fd.get("p")==="1"});ov.classList.remove("open")};
-function abrir(txt){const tipo=parseTipo(txt),valor=parseValor(txt),pago=parsePago(txt,tipo),d=parseDesc(txt);ovTxt.textContent=txt||"";rev.d.value=d;rev.t.value=tipo;rev.v.value=valor??"";rev.p.value=pago?"1":"0";ov.classList.add("open")}
-mic.onclick=()=>{if(!Rec){tr.textContent="Use o Safari neste iPhone. Se n\u00e3o reconhecer, use Manual.";tMan.click();return}const r=new Rec();r.lang="pt-BR";r.interimResults=true;mic.classList.add("listen");tr.textContent="Ouvindo\u2026";r.onresult=ev=>{let fin="",inter="";for(let i=ev.resultIndex;i<ev.results.length;i++){const t=ev.results[i][0].transcript;if(ev.results[i].isFinal)fin+=t;else inter+=t}tr.textContent=fin||inter||"Ouvindo\u2026";if(fin){mic.classList.remove("listen");abrir(fin)}};r.onerror=()=>{mic.classList.remove("listen");tr.textContent="N\u00e3o reconheceu. Tente de novo ou use Manual."};r.onend=()=>mic.classList.remove("listen");try{r.start()}catch(e){tr.textContent="Toque de novo no microfone."}};
+function falar(txt){try{const u=new SpeechSynthesisUtterance(txt);u.lang="pt-BR";speechSynthesis.speak(u)}catch(e){}}
+function abrir(txt){
+  if(ehSaldo(txt)){
+    const t=tot(load());
+    tr.textContent="Saldo disponível: "+brl(t.saldo);
+    falar("Saldo disponível "+brl(t.saldo));
+    return;
+  }
+  const tipo=parseTipo(txt), valor=parseValor(txt), pago=parsePago(txt), d=parseDesc(txt);
+  ovTxt.textContent=txt||""; rev.d.value=d; rev.t.value=tipo; rev.v.value=valor??""; rev.p.value=pago?"1":"0"; ov.classList.add("open");
+}
+mic.onclick=()=>{
+  if(!Rec){tr.textContent="Use o Safari para a voz.";return}
+  const r=new Rec(); r.lang="pt-BR"; r.interimResults=true;
+  mic.classList.add("listen"); tr.textContent="Ouvindo…";
+  r.onresult=ev=>{let fin="",inter=""; for(let i=ev.resultIndex;i<ev.results.length;i++){const x=ev.results[i][0].transcript; if(ev.results[i].isFinal)fin+=x; else inter+=x;} tr.textContent=fin||inter; if(fin){mic.classList.remove("listen"); abrir(fin);}};
+  r.onerror=()=>{mic.classList.remove("listen"); tr.textContent="Não reconheceu.";};
+  r.onend=()=>mic.classList.remove("listen");
+  try{r.start()}catch(e){tr.textContent="Toque de novo.";}
+};
 render();
 </script>
 </body>
