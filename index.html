@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="theme-color" content="#0b1210"><title>Kashu Grok</title>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta http-equiv="Cache-Control" content="no-cache"><meta name="theme-color" content="#0b1210"><title>Kashu Grok</title>
 <style>
 :root{--bg:#0b1210;--fg:#f3eee4;--muted:#9aa7a1;--hint:#b7c2bb;--card:#10261e;--card2:#1a4333;--panel:#14201b;--seg:#1b2a24;--line:#2a3d35;--field:#0b1210;--btn:#8fd4b4;--btnfg:#0b1210;--mic:#1a5c44;--cred:#4ade80;--ghost:#1b2a24}
 html.claro{--bg:#f4f7f5;--fg:#12211b;--muted:#5b6b64;--card:#dceee4;--card2:#c5e2d3;--panel:#fff;--seg:#e3eee8;--line:#c9d7d0;--field:#fff;--btn:#1a5c44;--btnfg:#fff;--cred:#0d7a45}
@@ -51,15 +51,15 @@ const KEY="kashu.pages.v2";const THEME="kashu.tema";
 const brl=n=>Number(n||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
 function podeOuvir(){return !!Rec}
-function podeFalar(){return "speechSynthesis" in window}
+function podeFalar(){return typeof window.speechSynthesis!=="undefined"}
 function uid(){return "k"+Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
 function hojeISO(){const d=new Date();const z=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate())}
 function fmtData(iso){if(!iso)return"";const [y,m,d]=iso.split("-");return d+"/"+m+"/"+y}
 function fold(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
-function aplicarTema(pref){if(pref)localStorage.setItem(THEME,pref);const modo=localStorage.getItem(THEME)||"auto";const claro=modo==="claro"||(modo==="auto"&&!(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches));document.documentElement.classList.toggle("claro",claro);temaBtn.textContent=modo==="auto"?"Auto":(claro?"Escuro":"Claro")}
+function aplicarTema(pref){try{if(pref)localStorage.setItem(THEME,pref);const modo=localStorage.getItem(THEME)||"auto";const escuro=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;const claro=modo==="claro"||(modo==="auto"&&!escuro);document.documentElement.classList.toggle("claro",claro);temaBtn.textContent=modo==="auto"?"Auto":(claro?"Escuro":"Claro")}catch(e){}}
 temaBtn.onclick=()=>{const seq=["auto","claro","escuro"];const modo=localStorage.getItem(THEME)||"auto";aplicarTema(seq[(seq.indexOf(modo)+1)%3])};aplicarTema();
 function parseData(text){const t=fold(text);if(/ontem/.test(t)){const d=new Date();d.setDate(d.getDate()-1);const z=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate())}return hojeISO()}
-function load(){try{const s=JSON.parse(localStorage.getItem(KEY))||{movs:[]};if(!Array.isArray(s.movs))s.movs=[];return s}catch{return{movs:[]}}}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY))||{movs:[]};if(!Array.isArray(s.movs))s.movs=[];return s}catch(e){return{movs:[]}}}
 function tot(s){let saldo=0,rec=0,pag=0,prevD=0,prevR=0,atrD=0,atrR=0;const h=hojeISO();s.movs.forEach(m=>{const v=Number(m.valor)||0;if(!m.pago){const atr=!!m.data&&m.data<h;if(m.tipo==="credito"){prevR+=v;if(atr)atrR+=v}else{prevD+=v;if(atr)atrD+=v}return}saldo+=m.tipo==="credito"?v:-v;if(m.data===h){if(m.tipo==="credito")rec+=v;else pag+=v}});s.saldo=saldo;return{saldo,rec,pag,prevD,prevR,atrD,atrR,saldoPrev:saldo+prevR-prevD}}
 function save(s){tot(s);localStorage.setItem(KEY,JSON.stringify(s))}
 function parseValor(text){const t=fold(text).replace(/reais?/g," ");const m=t.match(/(\d{1,3}(?:\.\d{3})+,\d{1,2}|\d+,\d{1,2}|\d+\.\d{1,2}|\d+)/);if(!m)return null;let raw=m[1];if(raw.includes(","))raw=raw.replace(/\./g,"").replace(",",".");const n=Number(raw);return Number.isFinite(n)?n:null}
@@ -70,9 +70,9 @@ const CATS={pessoal:{debito:["Moradia","Casa","Alimentação","Transporte","Saú
 function extraCats(cx,tp){try{return JSON.parse(localStorage.getItem("kashu.cats")||"{}")[cx+"."+tp]||[]}catch(e){return[]}}
 function saveCat(cx,tp,nome){nome=String(nome||"").trim();if(!nome)return;const o=JSON.parse(localStorage.getItem("kashu.cats")||"{}");const k=cx+"."+tp;o[k]=o[k]||[];if(!o[k].includes(nome))o[k].push(nome);localStorage.setItem("kashu.cats",JSON.stringify(o))}
 function listCat(cx,tp){return ((CATS[cx]||CATS.pessoal)[tp==="credito"?"credito":"debito"]).concat(extraCats(cx,tp==="credito"?"credito":"debito"))}
-function fillCat(form,tipo,cx,sel){const list=listCat(cx,tipo);form.c.innerHTML=list.map(x=>`<option value="${x}">${x}</option>`).join("");if(sel&&list.includes(sel))form.c.value=sel}
+function fillCat(form,tipo,cx,sel){if(!form||!form.c)return;const list=listCat(cx,tipo);form.c.innerHTML=list.map(x=>`<option value="${x}">${x}</option>`).join("");if(sel&&list.includes(sel))form.c.value=sel}
 function cxFixo(){return localStorage.getItem("kashu.cx.lock")==="1"}
-function aplicarUso(form){form.cx.value=localStorage.getItem("kashu.cx")||"pessoal";if(lockCx)lockCx.checked=cxFixo()}
+function aplicarUso(form){if(!form||!form.cx)return;form.cx.value=localStorage.getItem("kashu.cx")||"pessoal";if(document.getElementById("lockCx"))lockCx.checked=cxFixo()}
 function parseContexto(text){if(cxFixo())return localStorage.getItem("kashu.cx")||"pessoal";return /honorario|custas|escritorio|cliente|oab/.test(fold(text))?"profissional":(localStorage.getItem("kashu.cx")||"pessoal")}
 function parseCat(text,tipo,cx){const t=fold(text);const list=listCat(cx,tipo);if(t.includes("honorario")&&list.includes("Honorários"))return"Honorários";if(t.includes("uber")&&list.includes("Transporte"))return"Transporte";if(t.includes("custas")&&list.includes("Custas processuais"))return"Custas processuais";return list[list.length-1]}
 function render(){const s=load();const t=tot(s);save(s);saldo.textContent=brl(t.saldo);rec.textContent=brl(t.rec);pag.textContent=brl(t.pag);saldoPrev.textContent=brl(t.saldoPrev);totDesp.textContent=brl(t.prevD);totRec.textContent=brl(t.prevR);totAtrD.textContent=brl(t.atrD);totAtrR.textContent=brl(t.atrR);lista.innerHTML=s.movs.filter(m=>m.pago).slice().reverse().slice(0,40).map(m=>`<div class="item"><span>${m.descricao}<small>${[m.categoria,fmtData(m.data)].filter(Boolean).join(" · ")}</small></span><strong class="${m.tipo==="credito"?"cred":""}">${m.tipo==="credito"?"+":"-"} ${brl(m.valor)}</strong></div>`).join("")}
@@ -97,10 +97,10 @@ prevClose.onclick=()=>prevBox.classList.remove("open");
 document.addEventListener("click",e=>{const b=e.target.closest("#prevLista .plus,#prevBox .plus");if(b&&b.dataset.id){prevBox.classList.remove("open");abrirBaixa(b.dataset.id)}});
 document.addEventListener("click",e=>{const b=e.target.closest(".addCat");if(!b)return;e.preventDefault();const form=b.dataset.f==="rev"?rev:boxMan;const nome=prompt("Nova categoria:");if(!nome)return;saveCat(form.cx.value,form.t.value,nome);fillCat(form,form.t.value,form.cx.value,nome.trim())});
 lockCx.onchange=()=>{localStorage.setItem("kashu.cx.lock",lockCx.checked?"1":"0");if(lockCx.checked)localStorage.setItem("kashu.cx",boxMan.cx.value)};
-function statusVoz(){vozStatus.textContent=podeOuvir()?"Voz pronta neste aparelho":"Use o lançamento manual neste navegador"}
-function falar(txt){if(!podeFalar()||!txt)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(txt));u.lang="pt-BR";u.rate=.96;setTimeout(function(){try{speechSynthesis.resume();speechSynthesis.speak(u)}catch(e){}},80)}catch(e){}}
-function abrir(txt){ovTxt.textContent="Você disse: "+(txt||"");rev.d.value=parseDesc(txt);rev.t.value=parseTipo(txt);rev.v.value=parseValor(txt)??"";rev.p.value=parsePago(txt)?"1":"0";rev.dt.value=parseData(txt);rev.cx.value=parseContexto(txt);fillCat(rev,rev.t.value,rev.cx.value,parseCat(txt,rev.t.value,rev.cx.value));ov.classList.add("open");falar(parsePago(txt)?"Lançamento baixado. Confira na tela.":"Ficou previsto, porque não ouvi pago ou recebido. Confira na tela.")}
-function ouvir(){if(!podeOuvir()){tMan.click();return}try{speechSynthesis.cancel()}catch(e){}const r=new Rec();r.lang="pt-BR";r.interimResults=true;mic.classList.add("listen");tr.textContent="Ouvindo…";r.onresult=ev=>{let fin="",inter="";for(let i=ev.resultIndex;i<ev.results.length;i++){const x=ev.results[i][0].transcript;if(ev.results[i].isFinal)fin+=x;else inter+=x}tr.textContent=fin||inter;if(fin){mic.classList.remove("listen");abrir(fin)}};r.onerror=()=>{mic.classList.remove("listen");tr.textContent="Não reconheceu"};r.onend=()=>mic.classList.remove("listen");try{r.start()}catch(e){tr.textContent="Toque de novo"}}
+function statusVoz(){if(vozStatus)vozStatus.textContent=podeOuvir()?"Voz pronta neste aparelho":"Use o lançamento manual neste navegador"}
+function falar(txt){if(!podeFalar()||!txt)return;try{window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(txt));u.lang="pt-BR";u.rate=1;window.speechSynthesis.speak(u)}catch(e){}}
+function abrir(txt){ovTxt.textContent="Você disse: "+(txt||"");rev.d.value=parseDesc(txt);rev.t.value=parseTipo(txt);rev.v.value=parseValor(txt)??"";rev.p.value=parsePago(txt)?"1":"0";rev.dt.value=parseData(txt);rev.cx.value=parseContexto(txt);fillCat(rev,rev.t.value,rev.cx.value,parseCat(txt,rev.t.value,rev.cx.value));ov.classList.add("open")}
+function ouvir(){if(!podeOuvir()){tMan.click();return}try{speechSynthesis.cancel()}catch(e){}const r=new Rec();r.lang="pt-BR";r.interimResults=false;mic.classList.add("listen");tr.textContent="Ouvindo…";r.onresult=ev=>{const fin=ev.results[ev.results.length-1][0].transcript;tr.textContent=fin;mic.classList.remove("listen");abrir(fin)};r.onerror=()=>{mic.classList.remove("listen");tr.textContent="Não reconheceu"};r.onend=()=>mic.classList.remove("listen");try{r.start()}catch(e){tr.textContent="Toque de novo"}}
 const TUT="kashu.tut";function tutOn(){return localStorage.getItem(TUT)!=="0"}
 mic.onclick=()=>{if(tutOn()){tutCheck.checked=true;tutBox.classList.add("open");falar("Fale o tipo, o valor, o que foi e se já foi pago ou recebido. Se não disser pago, fica em aberto.");return}ouvir()};
 tutBtn.onclick=()=>tutBox.classList.add("open");
