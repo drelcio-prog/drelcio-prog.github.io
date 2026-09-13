@@ -27,7 +27,6 @@ label{display:grid;gap:4px;font-size:.75rem;color:var(--hint);margin:8px 0}.g2{d
 .panel{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);padding:12px;align-items:flex-end;z-index:40}.panel.open{display:flex}
 .sheet{width:100%;max-width:430px;margin:0 auto;background:var(--panel);border-radius:20px;padding:14px;max-height:85dvh;overflow:auto}.hide{display:none!important}
 .sum{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px;margin:8px 0}.sum small{display:block;margin-top:3px;font-size:.9rem;font-weight:800}
-.pitem{display:flex;justify-content:space-between;gap:6px;padding:8px 0;border-bottom:1px solid var(--line)}
 .plus{width:28px;height:28px;border:0;border-radius:50%;background:var(--mic);color:#fff;font-size:1.1rem;line-height:28px;padding:0;flex:0 0 28px}
 .checkrow{display:flex;align-items:center;gap:10px;margin:12px 0}.checkrow input{width:22px;height:22px}
 h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:18px 0 4px}
@@ -101,12 +100,12 @@ compClose.onclick=()=>compBox.classList.remove("open");
 openDesp.onclick=()=>listaPrev("debito",false);openRec.onclick=()=>listaPrev("credito",false);openAtrD.onclick=()=>listaPrev("debito",true);openAtrR.onclick=()=>listaPrev("credito",true);
 prevClose.onclick=()=>prevBox.classList.remove("open");
 document.addEventListener("click",e=>{const b=e.target.closest("#prevLista .plus");if(b){prevBox.classList.remove("open");abrirBaixa(b.dataset.id)}});
-function falar(txt){try{if(!podeFalar())return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang="pt-BR";u.rate=.96;speechSynthesis.speak(u)}catch(e){}}
-function abrir(txt){ovTxt.textContent="Você disse: "+(txt||"");rev.d.value=parseDesc(txt);rev.t.value=parseTipo(txt);rev.v.value=parseValor(txt)??"";rev.p.value=parsePago(txt)?"1":"0";rev.dt.value=parseData(txt);rev.cx.value=parseContexto(txt);fillCat(rev,rev.t.value,rev.cx.value,parseCat(txt,rev.t.value,rev.cx.value));ov.classList.add("open")}
-function ouvir(){if(!podeOuvir()){tMan.click();return}const r=new Rec();r.lang="pt-BR";r.interimResults=true;mic.classList.add("listen");tr.textContent="Ouvindo…";r.onresult=ev=>{let fin="",inter="";for(let i=ev.resultIndex;i<ev.results.length;i++){const x=ev.results[i][0].transcript;if(ev.results[i].isFinal)fin+=x;else inter+=x}tr.textContent=fin||inter;if(fin){mic.classList.remove("listen");abrir(fin)}};r.onerror=()=>{mic.classList.remove("listen");tr.textContent="Não reconheceu."};r.onend=()=>mic.classList.remove("listen");try{r.start()}catch(e){tr.textContent="Toque de novo."}}
+function falar(txt){if(!podeFalar()||!txt)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(txt));u.lang="pt-BR";u.rate=0.96;u.volume=1;setTimeout(function(){try{speechSynthesis.resume();speechSynthesis.speak(u)}catch(e){}},80)}catch(e){}}
+function abrir(txt){ovTxt.textContent="Você disse: "+(txt||"");rev.d.value=parseDesc(txt);rev.t.value=parseTipo(txt);rev.v.value=parseValor(txt)??"";rev.p.value=parsePago(txt)?"1":"0";rev.dt.value=parseData(txt);rev.cx.value=parseContexto(txt);fillCat(rev,rev.t.value,rev.cx.value,parseCat(txt,rev.t.value,rev.cx.value));ov.classList.add("open");falar("Confira o lançamento na tela.")}
+function ouvir(){if(!podeOuvir()){tMan.click();return}try{speechSynthesis.cancel()}catch(e){}const r=new Rec();r.lang="pt-BR";r.interimResults=true;mic.classList.add("listen");tr.textContent="Ouvindo…";r.onresult=ev=>{let fin="",inter="";for(let i=ev.resultIndex;i<ev.results.length;i++){const x=ev.results[i][0].transcript;if(ev.results[i].isFinal)fin+=x;else inter+=x}tr.textContent=fin||inter;if(fin){mic.classList.remove("listen");abrir(fin)}};r.onerror=()=>{mic.classList.remove("listen");tr.textContent="Não reconheceu."};r.onend=()=>mic.classList.remove("listen");try{r.start()}catch(e){tr.textContent="Toque de novo."}}
 const TUT="kashu.tut";function tutOn(){return localStorage.getItem(TUT)!=="0"}
-mic.onclick=()=>{if(tutOn()){tutCheck.checked=true;tutBox.classList.add("open");tr.textContent="Leia a ajuda e toque em Falar agora.";if(podeFalar())falar("Fale tipo, valor e o que foi. Se já pagou, diga pago.");return}ouvir()};
-tutBtn.onclick=()=>{tutCheck.checked=tutOn();tutBox.classList.add("open")};
+mic.onclick=()=>{if(tutOn()){tutCheck.checked=true;tutBox.classList.add("open");tr.textContent="Leia a ajuda e toque em Falar agora.";falar("Fale tipo, valor e o que foi. Se já pagou, diga pago.");return}ouvir()};
+tutBtn.onclick=()=>{tutCheck.checked=tutOn();tutBox.classList.add("open");falar("Como lançar por voz.")};
 tutCheck.onchange=()=>localStorage.setItem(TUT,tutCheck.checked?"1":"0");
 tutClose.onclick=()=>{localStorage.setItem(TUT,tutCheck.checked?"1":"0");tutBox.classList.remove("open")};
 tutGo.onclick=()=>{localStorage.setItem(TUT,tutCheck.checked?"1":"0");tutBox.classList.remove("open");ouvir()};
