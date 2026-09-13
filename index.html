@@ -1,21 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta http-equiv="Cache-Control" content="no-cache"><title>Kashu Grok</title>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><title>Kashu Grok</title>
 <style>
 :root{--bg:#0b1210;--fg:#f3eee4;--muted:#9aa7a1;--hint:#b7c2bb;--card:#10261e;--card2:#1a4333;--panel:#14201b;--seg:#1b2a24;--line:#2a3d35;--field:#0b1210;--btn:#8fd4b4;--btnfg:#0b1210;--mic:#1a5c44;--cred:#4ade80;--ghost:#1b2a24}
-html.claro{--bg:#f4f7f5;--fg:#12211b;--muted:#5b6b64;--card:#dceee4;--card2:#c5e2d3;--panel:#fff;--seg:#e3eee8;--line:#c9d7d0;--field:#fff;--btn:#1a5c44;--btnfg:#fff;--cred:#0d7a45}
-html[data-pal="analoga"]{--card:#10261e;--card2:#1a4a38}
-html.claro[data-pal="analoga"]{--bg:#eef7f2;--card:#cfe8db}
-html[data-pal="complementar"]{--card:#1a1214;--btn:#f0a8b0}
-html.claro[data-pal="complementar"]{--bg:#f7f3f2;--card:#e8d4d6;--btn:#8a3040;--btnfg:#fff}
-html[data-pal="triade"]{--card:#16141f;--btn:#d4c4f0}
-html.claro[data-pal="triade"]{--bg:#f4f2f8;--btn:#4a3880;--btnfg:#fff}
-html[data-pal="quente"]{--card:#24180e;--btn:#f0c878}
-html.claro[data-pal="quente"]{--bg:#faf6ee;--btn:#6a4810;--btnfg:#fff}
-html[data-pal="mono"]{--card:#0e1a16;--btn:#a8e0c8}
-.pals{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.sw{width:36px;height:36px;border-radius:50%;border:2px solid transparent;padding:0}.sw.on{border-color:var(--fg)}
+html.claro{--bg:#f4f7f5;--fg:#12211b;--muted:#5b6b64;--card:#dceee4;--panel:#fff;--seg:#e3eee8;--line:#c9d7d0;--field:#fff;--btn:#1a5c44;--btnfg:#fff;--cred:#0d7a45}
+html[data-pal="analoga"]{--card:#10261e}html[data-pal="complementar"]{--card:#1a1214;--btn:#f0a8b0}html[data-pal="triade"]{--card:#16141f;--btn:#d4c4f0}html[data-pal="quente"]{--card:#24180e;--btn:#f0c878}html[data-pal="mono"]{--card:#0e1a16}
+.pals{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.sw{width:36px;height:36px;border-radius:50%;border:2px solid transparent}.sw.on{border-color:var(--fg)}
 .sw.kashu{background:linear-gradient(135deg,#0b5c48,#7af0b0)}.sw.analoga{background:linear-gradient(135deg,#0b5c48,#7ec8e3)}.sw.complementar{background:linear-gradient(135deg,#0b5c48 50%,#c44536)}.sw.triade{background:conic-gradient(#1aa36f,#c9a227,#6b4ea0)}.sw.quente{background:linear-gradient(135deg,#0b5c48,#e8b84a)}.sw.mono{background:linear-gradient(135deg,#06382c,#a8e0c8)}
-*{box-sizing:border-box}html,body{margin:0;width:100%;overflow-x:hidden}
-body{font-family:-apple-system,sans-serif;background:var(--bg);color:var(--fg);min-height:100dvh;padding:calc(12px + env(safe-area-inset-top)) 14px 24px}
+*{box-sizing:border-box}html,body{margin:0;width:100%;overflow-x:hidden}body{font-family:-apple-system,sans-serif;background:var(--bg);color:var(--fg);min-height:100dvh;padding:calc(12px + env(safe-area-inset-top)) 14px 24px}
 .app{max-width:430px;margin:0 auto}.top{display:flex;align-items:center;gap:8px;margin-bottom:14px}.logo-k{width:48px;height:48px}.brand{flex:1}.brand h1{margin:0;font-size:1.35rem}.tag{margin:2px 0 0;font-size:.62rem;text-transform:uppercase;color:var(--muted)}
 .tema{border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:999px;padding:8px 10px;font-size:.72rem}
 .card{background:linear-gradient(145deg,var(--card),var(--card2));border-radius:18px;padding:14px}.label{font-size:.68rem;text-transform:uppercase;opacity:.8}.val{font-size:1.7rem;font-weight:800;margin:4px 0 10px}
@@ -27,11 +18,11 @@ body{font-family:-apple-system,sans-serif;background:var(--bg);color:var(--fg);m
 input,select,button{font:inherit}input,select{width:100%;background:var(--field);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:16px}
 label{display:grid;gap:4px;font-size:.75rem;color:var(--hint);margin:8px 0}.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .btn{width:100%;border:0;border-radius:12px;padding:14px;font-weight:700;background:var(--btn);color:var(--btnfg);margin-top:8px}.ghost{background:var(--ghost)!important;color:var(--fg)!important}
-.item{display:flex;justify-content:space-between;gap:8px;padding:12px 0;border-bottom:1px solid var(--line)}.item small{display:block;color:var(--hint);font-size:.72rem}.cred{color:var(--cred)}
+.item{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}.item small{display:block;color:var(--hint);font-size:.72rem}.cred{color:var(--cred)}
 .panel{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);padding:12px;align-items:flex-end;z-index:40}.panel.open{display:flex}
 .sheet{width:100%;max-width:430px;margin:0 auto;background:var(--panel);border-radius:20px;padding:14px;max-height:85dvh;overflow:auto}.hide{display:none!important}
 .sum{display:flex;align-items:center;justify-content:space-between;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px;margin:8px 0}.sum small{display:block;margin-top:3px;font-weight:800}
-.plus{width:28px;height:28px;border:0;border-radius:50%;background:var(--mic);color:#fff;font-size:1.1rem;padding:0;flex:0 0 28px}
+.plus{width:28px;height:28px;border:0;border-radius:50%;background:var(--mic);color:#fff;padding:0;flex:0 0 28px}
 .checkrow{display:flex;align-items:center;gap:10px;margin:12px 0;color:var(--fg)}.checkrow input{width:22px;height:22px}
 .crow{display:flex;gap:6px;align-items:center}h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:18px 0 4px}
 </style></head><body>
@@ -43,7 +34,7 @@ label{display:grid;gap:4px;font-size:.75rem;color:var(--hint);margin:8px 0}.g2{d
 <div class="prevsaldo" id="openComp"><span>Saldo previsto</span><strong id="saldoPrev">R$ 0,00</strong><button class="plus" type="button">+</button></div></div>
 <p class="hint">Sem “pago” ou “recebido”, entra como previsto.</p>
 <div class="seg"><button type="button" id="tVoz" class="on">Por voz</button><button type="button" id="tMan">Manual</button></div>
-<div id="boxVoz"><div class="micwrap"><button class="mic" id="mic" type="button">🎤</button></div><p class="hint" id="tr">Fale tipo, valor, o que foi e se está pago ou recebido</p><p class="hint" id="vozStatus"></p></div>
+<div id="boxVoz"><div class="micwrap"><button class="mic" id="mic" type="button">🎤</button></div><p class="hint" id="tr">Fale tipo, valor, o que foi e se está pago ou recebido</p><p class="hint" id="vozStatus"></p><p class="hint" id="ajudaHint"></p></div>
 <form id="boxMan" class="hide"><label>Descrição<input name="d" required></label><div class="g2"><label>Tipo<select name="t"><option value="debito">Despesa</option><option value="credito">Receita</option></select></label><label>Valor<input name="v" type="number" step="0.01" min="0" required></label></div><div class="g2"><label>Uso<select name="cx"><option value="pessoal">Pessoal</option><option value="profissional">Profissional</option></select></label><label>Categoria<span class="crow"><select name="c"></select><button type="button" class="plus addCat" data-f="boxMan">+</button></span></label></div><label class="checkrow"><input type="checkbox" id="lockCx"> Fixar uso (pessoal ou profissional)</label><label>Data<input name="dt" type="date" required></label><label>Situação<select name="p"><option value="0" selected>Previsto</option><option value="1">Pago / Recebido</option></select></label><button class="btn" type="submit">Lançar</button></form>
 <h2 class="sec">Atrasados</h2>
 <div class="sum" id="openAtrD"><div><strong>Débitos atrasados</strong><small id="totAtrD">R$ 0,00</small></div><button class="plus" type="button">+</button></div>
@@ -52,14 +43,14 @@ label{display:grid;gap:4px;font-size:.75rem;color:var(--hint);margin:8px 0}.g2{d
 <div class="sum" id="openDesp"><div><strong>Débitos previstos</strong><small id="totDesp">R$ 0,00</small></div><button class="plus" type="button">+</button></div>
 <div class="sum" id="openRec"><div><strong>Receitas previstas</strong><small class="cred" id="totRec">R$ 0,00</small></div><button class="plus" type="button">+</button></div>
 <h2 class="sec">Realizado</h2><div id="lista"></div></div>
-<div class="panel" id="tutBox"><div class="sheet"><h3>Como lançar por voz</h3><p class="hint" style="text-align:left">Fale tipo, valor, o que foi e se já foi pago ou recebido.<br>Ex.: despesa 50 Uber pago hoje</p><label class="checkrow"><input type="checkbox" id="tutCheck" checked> Mostrar esta ajuda</label><button class="btn" type="button" id="tutGo">Falar agora</button><button class="btn ghost" type="button" id="tutClose">Fechar</button></div></div>
+<div class="panel" id="tutBox"><div class="sheet"><h3>Ajuda de voz</h3><p class="hint" style="text-align:left">Fale tipo, valor, o que foi e se já foi pago ou recebido.<br>Ex.: despesa 50 Uber pago hoje</p><label class="checkrow"><input type="checkbox" id="tutCheck"> Ativar ajuda de voz</label><button class="btn" type="button" id="tutGo">Falar agora</button><button class="btn ghost" type="button" id="tutClose">Fechar</button></div></div>
 <div class="panel" id="palBox"><div class="sheet"><h3>Harmonia de cores</h3><div class="pals"><button type="button" class="sw kashu" data-pal="kashu"></button><button type="button" class="sw analoga" data-pal="analoga"></button><button type="button" class="sw complementar" data-pal="complementar"></button><button type="button" class="sw triade" data-pal="triade"></button><button type="button" class="sw quente" data-pal="quente"></button><button type="button" class="sw mono" data-pal="mono"></button></div><p class="hint" id="palNome">Marca Kashu</p><button class="btn ghost" type="button" id="palClose">Fechar</button></div></div>
 <div class="panel" id="ov"><div class="sheet"><h3>Revisar</h3><p class="hint" id="ovTxt"></p><form id="rev"><label>Descrição<input name="d" required></label><div class="g2"><label>Tipo<select name="t"><option value="debito">Despesa</option><option value="credito">Receita</option></select></label><label>Valor<input name="v" type="number" step="0.01" min="0" required></label></div><div class="g2"><label>Uso<select name="cx"><option value="pessoal">Pessoal</option><option value="profissional">Profissional</option></select></label><label>Categoria<span class="crow"><select name="c"></select><button type="button" class="plus addCat" data-f="rev">+</button></span></label></div><label>Data<input name="dt" type="date" required></label><label>Situação<select name="p"><option value="0">Previsto</option><option value="1">Pago / Recebido</option></select></label><button class="btn" type="submit">Confirmar</button><button class="btn ghost" type="button" id="cancel">Cancelar</button></form></div></div>
 <div class="panel" id="compBox"><div class="sheet"><h3>Composição</h3><div id="compLista"></div><button class="btn ghost" type="button" id="compClose">Fechar</button></div></div>
 <div class="panel" id="prevBox"><div class="sheet"><h3 id="prevTit">Previsto</h3><p class="hint" id="prevTot"></p><div id="prevLista"></div><button class="btn ghost" type="button" id="prevClose">Fechar</button></div></div>
 <div class="panel" id="baixa"><div class="sheet"><h3>Lançamento previsto</h3><p id="bxDesc"></p><p class="hint" id="bxMeta"></p><label class="checkrow"><input type="checkbox" id="bxCheck"> Dar baixa</label><button class="btn" type="button" id="bxOk">Salvar</button><button class="btn ghost" type="button" id="bxClose">Fechar</button></div></div>
 <script>
-const KEY="kashu.pages.v2";const THEME="kashu.tema";const PAL="kashu.paleta";
+const KEY="kashu.pages.v2";const THEME="kashu.tema";const PAL="kashu.paleta";const TUT="kashu.tut";
 const brl=n=>Number(n||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
 function podeOuvir(){return !!Rec}
@@ -68,7 +59,9 @@ function uid(){return "k"+Date.now().toString(36)+Math.random().toString(36).sli
 function hojeISO(){const d=new Date();const z=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate())}
 function fmtData(iso){if(!iso)return"";const [y,m,d]=iso.split("-");return d+"/"+m+"/"+y}
 function fold(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
-function limparFala(s){return String(s||"").replace(/\b(hey\s*)?siri\b/ig," ").replace(/\b(ok|okay)\s*google\b/ig," ").replace(/\balexa\b/ig," ").replace(/\s+/g," ").trim()}
+function limparFala(s){return String(s||"").replace(/\b(hey\s*)?siri\b/ig," ").replace(/\b(ok|okay)\s*google\b/ig," ").replace(/\s+/g," ").trim()}
+function tutOn(){return localStorage.getItem(TUT)!=="0"}
+function setTut(on){localStorage.setItem(TUT,on?"1":"0");if(tutCheck)tutCheck.checked=!!on;if(tutBtn)tutBtn.textContent=on?"Ajuda":"Ajuda off";if(ajudaHint)ajudaHint.textContent=on?"":"Ajuda de voz desligada. Toque em Ajuda no topo para ligar."}
 function aplicarTema(pref){try{if(pref)localStorage.setItem(THEME,pref);const modo=localStorage.getItem(THEME)||"auto";const escuro=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;const claro=modo==="claro"||(modo==="auto"&&!escuro);document.documentElement.classList.toggle("claro",claro);temaBtn.textContent=modo==="auto"?"Auto":(claro?"Escuro":"Claro")}catch(e){}}
 temaBtn.onclick=()=>{const seq=["auto","claro","escuro"];const modo=localStorage.getItem(THEME)||"auto";aplicarTema(seq[(seq.indexOf(modo)+1)%3])};aplicarTema();
 const NOMES={kashu:"Marca Kashu",analoga:"Análoga",complementar:"Complementar",triade:"Tríade",quente:"Âmbar",mono:"Mono"};
@@ -81,7 +74,7 @@ function save(s){tot(s);localStorage.setItem(KEY,JSON.stringify(s))}
 function parseValor(text){const t=fold(text).replace(/reais?/g," ");const m=t.match(/(\d{1,3}(?:\.\d{3})+,\d{1,2}|\d+,\d{1,2}|\d+\.\d{1,2}|\d+)/);if(!m)return null;let raw=m[1];if(raw.includes(","))raw=raw.replace(/\./g,"").replace(",",".");const n=Number(raw);return Number.isFinite(n)?n:null}
 function parseTipo(text){return /credito|receita|recebi|receber|honorario/.test(fold(text))?"credito":"debito"}
 function parsePago(text){const t=fold(text);if(/pendente|previsto|a pagar|a receber/.test(t))return false;return /\b(pago|paguei|pagou|recebido|recebi)\b/.test(t)}
-function parseDesc(text){return String(text||"").replace(/lancar|lance/ig,"").replace(/\b(siri|debito|credito|despesa|receita|pago|recebido|pendente|previsto|hoje|ontem|reais?)\b/ig,"").replace(/\d[\d.,]*/g,"").replace(/\s+/g," ").trim()||"Lançamento"}
+function parseDesc(text){return String(text||"").replace(/\b(siri|debito|credito|despesa|receita|pago|recebido|previsto|hoje|ontem|reais?)\b/ig,"").replace(/\d[\d.,]*/g,"").replace(/\s+/g," ").trim()||"Lançamento"}
 const CATS={pessoal:{debito:["Moradia","Casa","Alimentação","Transporte","Saúde","Outras despesas"],credito:["Salário","Rendimentos","Outras receitas"]},profissional:{debito:["Custas processuais","Software","Impostos e taxas","Outras despesas"],credito:["Honorários","Consultoria","Outros serviços"]}};
 function extraCats(cx,tp){try{return JSON.parse(localStorage.getItem("kashu.cats")||"{}")[cx+"."+tp]||[]}catch(e){return[]}}
 function saveCat(cx,tp,nome){nome=String(nome||"").trim();if(!nome)return;const o=JSON.parse(localStorage.getItem("kashu.cats")||"{}");const k=cx+"."+tp;o[k]=o[k]||[];if(!o[k].includes(nome))o[k].push(nome);localStorage.setItem("kashu.cats",JSON.stringify(o))}
@@ -92,7 +85,7 @@ function aplicarUso(form){if(!form||!form.cx)return;form.cx.value=localStorage.g
 function parseContexto(text){if(cxFixo())return localStorage.getItem("kashu.cx")||"pessoal";return /honorario|custas|escritorio|cliente|oab/.test(fold(text))?"profissional":(localStorage.getItem("kashu.cx")||"pessoal")}
 function parseCat(text,tipo,cx){const t=fold(text);const list=listCat(cx,tipo);if(t.includes("honorario")&&list.includes("Honorários"))return"Honorários";if(t.includes("uber")&&list.includes("Transporte"))return"Transporte";if(t.includes("custas")&&list.includes("Custas processuais"))return"Custas processuais";return list[list.length-1]}
 function render(){const s=load();const t=tot(s);save(s);saldo.textContent=brl(t.saldo);rec.textContent=brl(t.rec);pag.textContent=brl(t.pag);saldoPrev.textContent=brl(t.saldoPrev);totDesp.textContent=brl(t.prevD);totRec.textContent=brl(t.prevR);totAtrD.textContent=brl(t.atrD);totAtrR.textContent=brl(t.atrR);lista.innerHTML=s.movs.filter(m=>m.pago).slice().reverse().slice(0,40).map(m=>`<div class="item"><span>${m.descricao}<small>${[m.categoria,fmtData(m.data)].filter(Boolean).join(" · ")}</small></span><strong class="${m.tipo==="credito"?"cred":""}">${m.tipo==="credito"?"+":"-"} ${brl(m.valor)}</strong></div>`).join("")}
-function listaPrev(tipo,atrasado){const h=hojeISO();const pend=load().movs.filter(m=>!m.pago&&(tipo==="credito"?m.tipo==="credito":m.tipo!=="credito")&&(!atrasado||(m.data&&m.data<h))).slice().reverse();prevTit.textContent=atrasado?(tipo==="credito"?"Receitas atrasadas":"Débitos atrasados"):(tipo==="credito"?"Receitas previstas":"Débitos previstos");prevTot.textContent=pend.length?pend.length+" · "+brl(pend.reduce((a,m)=>a+(Number(m.valor)||0),0)):"Nenhum";prevLista.innerHTML=pend.map(m=>`<div class="item"><span>${m.descricao}<small>${fmtData(m.data)} · ${brl(m.valor)}</small></span><button class="plus" type="button" data-id="${m.id}">+</button></div>`).join("")||"<p class='hint'>Nenhum</p>";prevBox.classList.add("open")}
+function listaPrev(tipo,atrasado){const h=hojeISO();const pend=load().movs.filter(m=>!m.pago&&(tipo==="credito"?m.tipo==="credito":m.tipo!=="credito")&&(!atrasado||(m.data&&m.data<h))).slice().reverse();prevTit.textContent=atrasado?(tipo==="credito"?"Receitas atrasadas":"Débitos atrasados"):(tipo==="credito"?"Receitas previstas":"Débitos previstos");prevTot.textContent=pend.length?String(pend.length):"Nenhum";prevLista.innerHTML=pend.map(m=>`<div class="item"><span>${m.descricao}<small>${fmtData(m.data)} · ${brl(m.valor)}</small></span><button class="plus" type="button" data-id="${m.id}">+</button></div>`).join("")||"<p class='hint'>Nenhum</p>";prevBox.classList.add("open")}
 function gravar(o){const s=load();const cx=cxFixo()?(localStorage.getItem("kashu.cx")||"pessoal"):(o.cx||"pessoal");localStorage.setItem("kashu.cx",cx);s.movs.push({id:uid(),descricao:o.d,tipo:o.t,valor:Number(o.v)||0,pago:!!o.p,data:o.dt||hojeISO(),contexto:cx,categoria:o.c||""});save(s);render()}
 function abrirBaixa(id){const m=load().movs.find(x=>x.id===id);if(!m)return;baixa.dataset.id=id;bxDesc.textContent=m.descricao;bxMeta.textContent=fmtData(m.data)+" · "+brl(m.valor);bxCheck.checked=false;baixa.classList.add("open")}
 function syncCat(form){fillCat(form,form.t.value,form.cx.value,form.c.value)}
@@ -102,23 +95,21 @@ tVoz.onclick=()=>{tVoz.classList.add("on");tMan.classList.remove("on");boxVoz.cl
 tMan.onclick=()=>{tMan.classList.add("on");tVoz.classList.remove("on");boxMan.classList.remove("hide");boxVoz.classList.add("hide");boxMan.dt.value=hojeISO();aplicarUso(boxMan);fillCat(boxMan,boxMan.t.value,boxMan.cx.value)};
 boxMan.onsubmit=e=>{e.preventDefault();const fd=new FormData(boxMan);gravar({d:fd.get("d"),t:fd.get("t"),v:fd.get("v"),p:fd.get("p")==="1",dt:fd.get("dt"),cx:fd.get("cx"),c:fd.get("c")});boxMan.reset();boxMan.dt.value=hojeISO();boxMan.p.value="0";aplicarUso(boxMan);fillCat(boxMan,boxMan.t.value,boxMan.cx.value);tVoz.click()};
 cancel.onclick=()=>ov.classList.remove("open");rev.t.onchange=()=>syncCat(rev);rev.cx.onchange=()=>syncCat(rev);
-rev.onsubmit=e=>{e.preventDefault();const fd=new FormData(rev);if(!fd.get("v")){alert("Informe o valor");return}gravar({d:fd.get("d"),t:fd.get("t"),v:fd.get("v"),p:fd.get("p")==="1",dt:fd.get("dt"),cx:fd.get("cx"),c:fd.get("c")});ov.classList.remove("open")};
-bxClose.onclick=()=>baixa.classList.remove("open");
-bxOk.onclick=()=>{if(bxCheck.checked){const s=load();const m=s.movs.find(x=>x.id===baixa.dataset.id);if(m)m.pago=true;save(s);render()}baixa.classList.remove("open")};
+rev.onsubmit=e=>{e.preventDefault();const fd=new FormData(rev);if(!fd.get("v"))return;gravar({d:fd.get("d"),t:fd.get("t"),v:fd.get("v"),p:fd.get("p")==="1",dt:fd.get("dt"),cx:fd.get("cx"),c:fd.get("c")});ov.classList.remove("open")};
+bxClose.onclick=()=>baixa.classList.remove("open");bxOk.onclick=()=>{if(bxCheck.checked){const s=load();const m=s.movs.find(x=>x.id===baixa.dataset.id);if(m)m.pago=true;save(s);render()}baixa.classList.remove("open")};
 openComp.onclick=()=>{const t=tot(load());compLista.innerHTML=`<div class="item"><span>Saldo disponível</span><strong>${brl(t.saldo)}</strong></div><div class="item"><span>Receitas previstas</span><strong class="cred">${brl(t.prevR)}</strong></div><div class="item"><span>Despesas previstas</span><strong>${brl(t.prevD)}</strong></div><div class="item"><span>Saldo previsto</span><strong>${brl(t.saldoPrev)}</strong></div>`;compBox.classList.add("open")};
 compClose.onclick=()=>compBox.classList.remove("open");openDesp.onclick=()=>listaPrev("debito",false);openRec.onclick=()=>listaPrev("credito",false);openAtrD.onclick=()=>listaPrev("debito",true);openAtrR.onclick=()=>listaPrev("credito",true);prevClose.onclick=()=>prevBox.classList.remove("open");
 document.addEventListener("click",e=>{const b=e.target.closest("#prevLista .plus,#prevBox .plus");if(b&&b.dataset.id){prevBox.classList.remove("open");abrirBaixa(b.dataset.id)}});
 document.addEventListener("click",e=>{const b=e.target.closest(".addCat");if(!b)return;e.preventDefault();const form=b.dataset.f==="rev"?rev:boxMan;const nome=prompt("Nova categoria:");if(!nome)return;saveCat(form.cx.value,form.t.value,nome);fillCat(form,form.t.value,form.cx.value,nome.trim())});
 lockCx.onchange=()=>{localStorage.setItem("kashu.cx.lock",lockCx.checked?"1":"0");if(lockCx.checked)localStorage.setItem("kashu.cx",boxMan.cx.value)};
-function ehChrome(){return /Chrome/.test(navigator.userAgent)&&!/Edg\//.test(navigator.userAgent)}
-function statusVoz(){if(vozStatus)vozStatus.textContent=!podeOuvir()?"Use o lançamento manual":(ehChrome()?"No Chrome fale perto, com internet, e diga o valor.":"Voz pronta neste aparelho")}
 function falar(txt){if(!podeFalar()||!txt)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(txt));u.lang="pt-BR";u.rate=.96;speechSynthesis.speak(u)}catch(e){}}
-function abrir(txt){const fala=limparFala(txt);if(!fala||!parseValor(fala)){tr.textContent="Não entendi o valor. Fale: despesa 50 Uber pago";falar("Não entendi o valor. Fale tipo, valor e se foi pago.");return}ovTxt.textContent="Você disse: "+fala;rev.d.value=parseDesc(fala);rev.t.value=parseTipo(fala);rev.v.value=parseValor(fala)??"";rev.p.value=parsePago(fala)?"1":"0";rev.dt.value=parseData(fala);rev.cx.value=parseContexto(fala);fillCat(rev,rev.t.value,rev.cx.value,parseCat(fala,rev.t.value,rev.cx.value));ov.classList.add("open")}
-function ouvir(){if(!podeOuvir()){tMan.click();return}try{speechSynthesis.cancel()}catch(e){}const r=new Rec();r.lang="pt-BR";r.interimResults=true;r.continuous=false;r.maxAlternatives=3;mic.classList.add("listen");tr.textContent="Ouvindo… diga o valor";r.onresult=ev=>{let last="";for(let i=ev.resultIndex;i<ev.results.length;i++){last=ev.results[i][0].transcript;tr.textContent=last;if(ev.results[i].isFinal){mic.classList.remove("listen");abrir(last)}}};r.onerror=ev=>{mic.classList.remove("listen");tr.textContent=ev.error==="network"?"Chrome precisa de internet para a voz.":"Não reconheceu. Toque e fale de novo."};r.onend=()=>mic.classList.remove("listen");try{r.start()}catch(e){tr.textContent="Toque de novo"}}
-const TUT="kashu.tut";function tutOn(){return localStorage.getItem(TUT)!=="0"}
-mic.onclick=()=>{if(tutOn()){tutCheck.checked=true;tutBox.classList.add("open");falar("Fale tipo, valor e se já foi pago ou recebido.");return}ouvir()};
-tutBtn.onclick=()=>tutBox.classList.add("open");tutCheck.onchange=()=>localStorage.setItem(TUT,tutCheck.checked?"1":"0");
-tutClose.onclick=()=>{localStorage.setItem(TUT,tutCheck.checked?"1":"0");tutBox.classList.remove("open")};
-tutGo.onclick=()=>{localStorage.setItem(TUT,tutCheck.checked?"1":"0");tutBox.classList.remove("open");ouvir()};
-statusVoz();render();
+function abrir(txt){const fala=limparFala(txt);if(!fala||!parseValor(fala)){tr.textContent="Não entendi o valor. Fale: despesa 50 Uber pago";return}ovTxt.textContent="Você disse: "+fala;rev.d.value=parseDesc(fala);rev.t.value=parseTipo(fala);rev.v.value=parseValor(fala)??"";rev.p.value=parsePago(fala)?"1":"0";rev.dt.value=parseData(fala);rev.cx.value=parseContexto(fala);fillCat(rev,rev.t.value,rev.cx.value,parseCat(fala,rev.t.value,rev.cx.value));ov.classList.add("open")}
+function ouvir(){if(!podeOuvir()){tMan.click();return}try{speechSynthesis.cancel()}catch(e){}const r=new Rec();r.lang="pt-BR";r.interimResults=true;mic.classList.add("listen");tr.textContent="Ouvindo…";r.onresult=ev=>{let last="";for(let i=ev.resultIndex;i<ev.results.length;i++){last=ev.results[i][0].transcript;tr.textContent=last;if(ev.results[i].isFinal){mic.classList.remove("listen");abrir(last)}}};r.onerror=()=>{mic.classList.remove("listen");tr.textContent="Não reconheceu"};r.onend=()=>mic.classList.remove("listen");try{r.start()}catch(e){tr.textContent="Toque de novo"}}
+mic.onclick=()=>{if(tutOn()){tutCheck.checked=true;tutBox.classList.add("open");falar("Fale tipo, valor e se já foi pago.");return}ouvir()};
+tutBtn.onclick=()=>{tutCheck.checked=tutOn();tutBox.classList.add("open")};
+tutCheck.onchange=()=>setTut(tutCheck.checked);
+tutClose.onclick=()=>{setTut(tutCheck.checked);tutBox.classList.remove("open")};
+tutGo.onclick=()=>{setTut(tutCheck.checked);tutBox.classList.remove("open");ouvir()};
+function statusVoz(){if(vozStatus)vozStatus.textContent=podeOuvir()?"Voz pronta neste aparelho":"Use o lançamento manual"}
+statusVoz();setTut(tutOn());render();
 </script></body></html>
