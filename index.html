@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><title>Kashu Grok</title>
 <style>
-:root{--bg:#0b1210;--fg:#f3eee4;--muted:#9aa7a1;--hint:#b7c2bb;--card:#10261e;--card2:#1a4333;--panel:#14201b;--seg:#1b2a24;--line:#2a3d35;--field:#0b1210;--btn:#8fd4b4;--btnfg:#0b1210;--mic:#1a5c44;--cred:#4ade80;--ghost:#1b2a24}
-html.claro{--bg:#f4f7f5;--fg:#12211b;--muted:#5b6b64;--card:#dceee4;--panel:#fff;--seg:#e3eee8;--line:#c9d7d0;--field:#fff;--btn:#1a5c44;--btnfg:#fff;--cred:#0d7a45}
+:root{--bg:#0b1210;--fg:#f3eee4;--muted:#9aa7a1;--hint:#b7c2bb;--card:#10261e;--card2:#1a4333;--panel:#14201b;--seg:#1b2a24;--line:#2a3d35;--field:#0b1210;--btn:#8fd4b4;--btnfg:#0b1210;--mic:#1a5c44;--cred:#4ade80;--ghost:#24332c}
+html.claro{--bg:#f4f7f5;--fg:#12211b;--muted:#5b6b64;--hint:#5b6b64;--card:#dceee4;--card2:#c5e2d3;--panel:#fff;--seg:#e3eee8;--line:#c9d7d0;--field:#fff;--btn:#1a5c44;--btnfg:#fff;--mic:#1a5c44;--cred:#0d7a45;--ghost:#e8eee9}
 html[data-pal="analoga"]{--card:#10261e}html[data-pal="complementar"]{--card:#1a1214;--btn:#f0a8b0}html[data-pal="triade"]{--card:#16141f;--btn:#d4c4f0}html[data-pal="quente"]{--card:#24180e;--btn:#f0c878}html[data-pal="mono"]{--card:#0e1a16}
 .pals{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.sw{width:36px;height:36px;border-radius:50%;border:2px solid transparent}.sw.on{border-color:var(--fg)}
 .sw.kashu{background:linear-gradient(135deg,#0b5c48,#7af0b0)}.sw.analoga{background:linear-gradient(135deg,#0b5c48,#7ec8e3)}.sw.complementar{background:linear-gradient(135deg,#0b5c48 50%,#c44536)}.sw.triade{background:conic-gradient(#1aa36f,#c9a227,#6b4ea0)}.sw.quente{background:linear-gradient(135deg,#0b5c48,#e8b84a)}.sw.mono{background:linear-gradient(135deg,#06382c,#a8e0c8)}
@@ -16,8 +16,8 @@ html[data-pal="analoga"]{--card:#10261e}html[data-pal="complementar"]{--card:#1a
 .seg button{border:0;background:transparent;color:var(--muted);border-radius:11px;padding:11px 8px}.seg button.on{background:var(--panel);color:var(--fg);font-weight:700}
 .micwrap{display:grid;place-items:center}.mic{width:92px;height:92px;border:0;border-radius:50%;background:var(--mic);color:#fff;font-size:2rem}.mic.listen{background:#c44536}
 input,select,button{font:inherit}input,select{width:100%;background:var(--field);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:16px}
-label{display:grid;gap:4px;font-size:.75rem;color:var(--hint);margin:8px 0}.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.g3{display:grid;grid-template-columns:1fr;gap:6px}
-.btn{width:100%;border:0;border-radius:12px;padding:14px;font-weight:700;background:var(--btn);color:var(--btnfg);margin-top:8px}.ghost{background:var(--ghost)!important;color:var(--fg)!important}
+label{display:grid;gap:4px;font-size:.75rem;color:var(--hint);margin:8px 0}.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn{width:100%;border:0;border-radius:12px;padding:14px;font-weight:700;background:var(--btn);color:var(--btnfg);margin-top:8px}.ghost{background:var(--ghost)!important;color:var(--fg)!important;border:1px solid var(--line)!important}
 .item{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}.item small{display:block;color:var(--hint);font-size:.72rem}.cred{color:var(--cred)}
 .panel{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);padding:12px;align-items:flex-end;z-index:40}.panel.open{display:flex}
 .sheet{width:100%;max-width:430px;margin:0 auto;background:var(--panel);border-radius:20px;padding:14px;max-height:88dvh;overflow:auto}.hide{display:none!important}
@@ -25,8 +25,7 @@ label{display:grid;gap:4px;font-size:.75rem;color:var(--hint);margin:8px 0}.g2{d
 .plus{width:28px;height:28px;border:0;border-radius:50%;background:var(--mic);color:#fff;padding:0;flex:0 0 28px}
 .checkrow{display:flex;align-items:center;gap:10px;margin:12px 0;color:var(--fg)}.checkrow input{width:22px;height:22px}
 .crow{display:flex;gap:6px;align-items:center}h2.sec,h3.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:16px 0 6px}
-.dest{border:1px solid var(--line);border-radius:14px;padding:10px;margin:8px 0}
-.dest h4{margin:0 0 6px;font-size:.82rem}
+.dest{border:1px solid var(--line);border-radius:14px;padding:10px;margin:8px 0}.dest h4{margin:0 0 6px;font-size:.82rem}
 </style></head><body>
 <div class="app">
 <div class="top"><svg class="logo-k" viewBox="0 0 80 80"><defs><linearGradient id="kg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#0b5c48"/><stop offset="1" stop-color="#7af0b0"/></linearGradient></defs><path fill="url(#kg)" d="M18 8c0-3 2-6 6-6h10c3 0 6 3 6 6v28l18-16c2-2 6-2 8 0l7 7c2 2 2 6 0 8L52 50l16 18c2 2 2 6 0 8l-7 7c-2 2-6 2-8 0L40 66v8c0 3-3 6-6 6H24c-4 0-6-3-6-6V8z"/></svg>
@@ -48,7 +47,7 @@ label{display:grid;gap:4px;font-size:.75rem;color:var(--hint);margin:8px 0}.g2{d
 <div class="panel" id="cfgBox"><div class="sheet">
 <h3>Configurações</h3>
 <h3 class="sec">Aparência</h3>
-<div class="g2"><button class="btn ghost" type="button" id="temaBtn">Auto</button><button class="btn ghost" type="button" id="palOpen">Paleta</button></div>
+<div class="g2"><button class="btn ghost" type="button" id="temaBtn">Tema: Auto</button><button class="btn ghost" type="button" id="palOpen">Paleta</button></div>
 <div id="palArea" class="hide"><div class="pals"><button type="button" class="sw kashu" data-pal="kashu"></button><button type="button" class="sw analoga" data-pal="analoga"></button><button type="button" class="sw complementar" data-pal="complementar"></button><button type="button" class="sw triade" data-pal="triade"></button><button type="button" class="sw quente" data-pal="quente"></button><button type="button" class="sw mono" data-pal="mono"></button></div><p class="hint" id="palNome">Marca Kashu</p></div>
 <h3 class="sec">Voz</h3>
 <label class="checkrow"><input type="checkbox" id="tutCheck"> Ativar ajuda de voz</label>
