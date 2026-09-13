@@ -88,7 +88,7 @@ h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(
       <h1>Kashu</h1>
       <p class="tag">Seu financeiro mais simples</p>
     </div>
-    <button type="button" class="tema" id="temaBtn">Claro</button>
+    <button type="button" class="tema" id="temaBtn">Auto</button>
   </div>
   <div class="card">
     <div class="label">Saldo disponível</div>
@@ -170,15 +170,23 @@ function hojeISO(){const d=new Date();const z=n=>String(n).padStart(2,"0");retur
 function addDays(iso,n){const [y,m,d]=iso.split("-").map(Number);const x=new Date(y,m-1,d+n);const z=k=>String(k).padStart(2,"0");return x.getFullYear()+"-"+z(x.getMonth()+1)+"-"+z(x.getDate())}
 function fmtData(iso){if(!iso)return "";const [y,m,d]=iso.split("-");return d+"/"+m+"/"+y}
 function fold(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
-function aplicarTema(t){
-  const claro=t==="claro";
+function sistemaEscuro(){return !!(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)}
+function modoAtual(){return localStorage.getItem(THEME)||"auto"}
+function aplicarTema(pref){
+  if(pref) localStorage.setItem(THEME,pref);
+  const modo=modoAtual();
+  const claro=modo==="claro"||(modo==="auto"&&!sistemaEscuro());
   document.documentElement.classList.toggle("claro",claro);
-  temaBtn.textContent=claro?"Escuro":"Claro";
+  temaBtn.textContent=modo==="auto"?"Auto":(claro?"Escuro":"Claro");
   metaTheme.setAttribute("content",claro?"#f4f7f5":"#0b1210");
-  localStorage.setItem(THEME,claro?"claro":"escuro");
 }
-temaBtn.onclick=()=>aplicarTema(document.documentElement.classList.contains("claro")?"escuro":"claro");
-aplicarTema(localStorage.getItem(THEME)||"escuro");
+temaBtn.onclick=()=>{
+  const seq=["auto","claro","escuro"];
+  const i=seq.indexOf(modoAtual());
+  aplicarTema(seq[(i+1)%seq.length]);
+};
+aplicarTema();
+try{window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if(modoAtual()==="auto")aplicarTema()})}catch(e){}
 function parseData(text){
   const t=fold(text);
   if(/ontem/.test(t)) return addDays(hojeISO(),-1);
