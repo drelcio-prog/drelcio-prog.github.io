@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Kashu">
 <meta name="theme-color" content="#0b1210" id="metaTheme">
 <title>Kashu Grok</title>
 <style>
@@ -25,9 +24,9 @@ input,select,button{font:inherit;max-width:100%}input,select{width:100%;backgrou
 label{display:grid;gap:4px;font-size:.75rem;color:var(--hint);margin:8px 0}.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .btn{width:100%;border:0;border-radius:12px;padding:14px;font-weight:700;background:var(--btn);color:var(--btnfg);margin-top:8px}.ghost{background:var(--ghost)!important;color:var(--fg)!important}
 .item{display:flex;justify-content:space-between;gap:8px;padding:12px 0;border-bottom:1px solid var(--line)}.item small{display:block;color:var(--hint);font-size:.72rem;margin-top:3px}.cred{color:var(--cred)}
-.panel{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);padding:12px;align-items:flex-end;z-index:20}.panel.open{display:flex}
+.panel{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);padding:12px;align-items:flex-end;z-index:40}.panel.open{display:flex}
 .sheet{width:100%;max-width:430px;margin:0 auto;background:var(--panel);border-radius:20px;padding:14px;max-height:85dvh;overflow:auto}.hide{display:none!important}
-.sum{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px;margin:8px 0}.sum small{display:block;margin-top:3px;font-size:.9rem;font-weight:800;color:var(--fg)}
+.sum{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px;margin:8px 0}.sum small{display:block;margin-top:3px;font-size:.9rem;font-weight:800}
 .pitem{display:flex;justify-content:space-between;gap:6px;padding:8px 0;border-bottom:1px solid var(--line)}
 .plus{width:28px;height:28px;border:0;border-radius:50%;background:var(--mic);color:#fff;font-size:1.1rem;line-height:28px;padding:0;flex:0 0 28px}
 .checkrow{display:flex;align-items:center;gap:10px;margin:12px 0}.checkrow input{width:22px;height:22px}
@@ -50,20 +49,20 @@ h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(
 <div class="sum" id="openDesp"><div><strong>Débitos previstos</strong><small id="totDesp">R$ 0,00</small></div><button class="plus" type="button">+</button></div>
 <div class="sum" id="openRec"><div><strong>Receitas previstas</strong><small class="cred" id="totRec">R$ 0,00</small></div><button class="plus" type="button">+</button></div>
 <h2 class="sec">Realizado</h2><div id="lista"></div></div>
-<div class="panel" id="tutBox"><div class="sheet"><h3>Como lançar por voz</h3><p class="hint" style="text-align:left">Fale tipo, valor e o que foi. Se já saiu do caixa, diga pago ou recebido.<br>Ex.: despesa 50 Uber pago hoje</p><label class="checkrow"><input type="checkbox" id="tutCheck"> Mostrar esta ajuda</label><button class="btn" type="button" id="tutGo">Falar agora</button><button class="btn ghost" type="button" id="tutClose">Fechar</button></div></div>
+<div class="panel" id="tutBox"><div class="sheet"><h3>Como lançar por voz</h3><p class="hint" style="text-align:left">Fale tipo, valor e o que foi. Se já saiu do caixa, diga pago ou recebido.<br>Ex.: despesa 50 Uber pago hoje</p><label class="checkrow"><input type="checkbox" id="tutCheck" checked> Mostrar esta ajuda</label><button class="btn" type="button" id="tutGo">Falar agora</button><button class="btn ghost" type="button" id="tutClose">Fechar</button></div></div>
 <div class="panel" id="ov"><div class="sheet"><h3>Revisar</h3><p class="hint" id="ovTxt"></p><form id="rev"><label>Descrição<input name="d" required></label><div class="g2"><label>Tipo<select name="t"><option value="debito">Despesa</option><option value="credito">Receita</option></select></label><label>Valor<input name="v" type="number" step="0.01" min="0" required></label></div><div class="g2"><label>Uso<select name="cx"><option value="pessoal">Pessoal</option><option value="profissional">Profissional</option></select></label><label>Categoria<select name="c"></select></label></div><label>Data<input name="dt" type="date" required></label><label>Situação<select name="p"><option value="0">Previsto</option><option value="1">Pago / Recebido</option></select></label><button class="btn" type="submit">Confirmar</button><button class="btn ghost" type="button" id="cancel">Cancelar</button></form></div></div>
 <div class="panel" id="palBox"><div class="sheet"><h3>Cores</h3><button class="btn ghost" type="button" id="palClose">Fechar</button></div></div>
 <div class="panel" id="compBox"><div class="sheet"><h3>Composição</h3><div id="compLista"></div><button class="btn ghost" type="button" id="compClose">Fechar</button></div></div>
 <div class="panel" id="prevBox"><div class="sheet"><h3 id="prevTit">Previsto</h3><p class="hint" id="prevTot"></p><div id="prevLista"></div><button class="btn ghost" type="button" id="prevClose">Fechar</button></div></div>
 <div class="panel" id="baixa"><div class="sheet"><h3>Lançamento previsto</h3><p id="bxDesc"></p><p class="hint" id="bxMeta"></p><label class="checkrow"><input type="checkbox" id="bxCheck"> Dar baixa</label><button class="btn" type="button" id="bxOk">Salvar</button><button class="btn ghost" type="button" id="bxClose">Fechar</button></div></div>
 <script>
-const KEY="kashu.pages.v2";const THEME="kashu.tema";const PAL="kashu.paleta";
+const KEY="kashu.pages.v2";const THEME="kashu.tema";
 const brl=n=>Number(n||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
 function podeOuvir(){return !!Rec}
 function podeFalar(){return "speechSynthesis" in window}
 function navNome(){const u=navigator.userAgent||"";if(/Edg\//.test(u))return"Edge";if(/Chrome/.test(u)&&!/Edg\//.test(u))return"Chrome";if(/Safari/.test(u)&&!/Chrome/.test(u))return"Safari";if(/Firefox/.test(u))return"Firefox";return"este navegador"}
-function statusVoz(){const el=document.getElementById("vozStatus");if(!el)return;if(podeOuvir())el.textContent="Voz pronta neste aparelho ("+navNome()+").";else{el.textContent="Neste navegador use o lançamento manual. A voz funciona no Chrome, Edge ou Safari.";mic.style.opacity=".45"}}
+function statusVoz(){const el=document.getElementById("vozStatus");if(!el)return;if(podeOuvir())el.textContent="Voz pronta neste aparelho ("+navNome()+")";else{el.textContent="Neste navegador use o lançamento manual.";mic.style.opacity=".45"}}
 function uid(){return "k"+Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
 function hojeISO(){const d=new Date();const z=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate())}
 function addDays(iso,n){const [y,m,d]=iso.split("-").map(Number);const x=new Date(y,m-1,d+n);const z=k=>String(k).padStart(2,"0");return x.getFullYear()+"-"+z(x.getMonth()+1)+"-"+z(x.getDate())}
@@ -106,7 +105,7 @@ function falar(txt){try{if(!podeFalar())return;speechSynthesis.cancel();const u=
 function abrir(txt){ovTxt.textContent="Você disse: "+(txt||"");rev.d.value=parseDesc(txt);rev.t.value=parseTipo(txt);rev.v.value=parseValor(txt)??"";rev.p.value=parsePago(txt)?"1":"0";rev.dt.value=parseData(txt);rev.cx.value=parseContexto(txt);fillCat(rev,rev.t.value,rev.cx.value,parseCat(txt,rev.t.value,rev.cx.value));ov.classList.add("open")}
 function ouvir(){if(!podeOuvir()){tMan.click();return}const r=new Rec();r.lang="pt-BR";r.interimResults=true;mic.classList.add("listen");tr.textContent="Ouvindo…";r.onresult=ev=>{let fin="",inter="";for(let i=ev.resultIndex;i<ev.results.length;i++){const x=ev.results[i][0].transcript;if(ev.results[i].isFinal)fin+=x;else inter+=x}tr.textContent=fin||inter;if(fin){mic.classList.remove("listen");abrir(fin)}};r.onerror=()=>{mic.classList.remove("listen");tr.textContent="Não reconheceu."};r.onend=()=>mic.classList.remove("listen");try{r.start()}catch(e){tr.textContent="Toque de novo."}}
 const TUT="kashu.tut";function tutOn(){return localStorage.getItem(TUT)!=="0"}
-mic.onclick=()=>{if(tutOn()&&!localStorage.getItem("kashu.tut.seen")){localStorage.setItem("kashu.tut.seen","1");tutCheck.checked=true;tutBox.classList.add("open");if(podeFalar())falar("Fale tipo, valor e o que foi. Se já pagou, diga pago.");return}ouvir()};
+mic.onclick=()=>{if(tutOn()){tutCheck.checked=true;tutBox.classList.add("open");tr.textContent="Leia a ajuda e toque em Falar agora.";if(podeFalar())falar("Fale tipo, valor e o que foi. Se já pagou, diga pago.");return}ouvir()};
 tutBtn.onclick=()=>{tutCheck.checked=tutOn();tutBox.classList.add("open")};
 tutCheck.onchange=()=>localStorage.setItem(TUT,tutCheck.checked?"1":"0");
 tutClose.onclick=()=>{localStorage.setItem(TUT,tutCheck.checked?"1":"0");tutBox.classList.remove("open")};
