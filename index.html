@@ -20,6 +20,22 @@ html.claro{
   --line:#c9d7d0;--field:#ffffff;--btn:#1a5c44;--btnfg:#fff;
   --mic:#1a5c44;--cred:#0d7a45;--ghost:#e3eee8;
 }
+html[data-pal="oceano"]{--card:#0f2233;--card2:#163a52;--panel:#12283a;--seg:#1a3344;--line:#2a4a5c;--field:#0b1a24;--btn:#7ec8e3;--mic:#1a6a8a;--cred:#5ee0ff;--ghost:#1a3344}
+html.claro[data-pal="oceano"]{--bg:#eef6fa;--fg:#102432;--card:#cfe6f2;--card2:#b7d7e8;--panel:#fff;--seg:#dceaf1;--line:#b7cdd8;--field:#fff;--btn:#12597a;--btnfg:#fff;--mic:#12597a;--cred:#0b6b8a;--ghost:#dceaf1}
+html[data-pal="vinho"]{--card:#2a1418;--card2:#4a1f28;--panel:#241216;--seg:#3a1c24;--line:#5a2a34;--field:#1a0c10;--btn:#e8a0ab;--mic:#8a3040;--cred:#f0b4bc;--ghost:#3a1c24}
+html.claro[data-pal="vinho"]{--bg:#faf4f5;--fg:#2a1418;--card:#f0d5d9;--card2:#e4c0c6;--panel:#fff;--seg:#f3e4e6;--line:#e0c8cc;--field:#fff;--btn:#7a2434;--btnfg:#fff;--mic:#7a2434;--cred:#8a2030;--ghost:#f3e4e6}
+html[data-pal="areia"]{--card:#2a2418;--card2:#4a3d28;--panel:#241e14;--seg:#3a3220;--line:#5a4a30;--field:#1a160e;--btn:#e8d4a0;--mic:#8a7030;--cred:#f0e0a8;--ghost:#3a3220}
+html.claro[data-pal="areia"]{--bg:#faf7f0;--fg:#2a2414;--card:#efe4c8;--card2:#e4d4b0;--panel:#fff;--seg:#f3ead8;--line:#e0d4b8;--field:#fff;--btn:#6a5420;--btnfg:#fff;--mic:#6a5420;--cred:#6a5420;--ghost:#f3ead8}
+html[data-pal="grafite"]{--card:#1c1c1e;--card2:#2c2c30;--panel:#222226;--seg:#2a2a2e;--line:#3a3a40;--field:#141416;--btn:#d0d0d4;--mic:#4a4a50;--cred:#c8f0d4;--ghost:#2a2a2e}
+html.claro[data-pal="grafite"]{--bg:#f3f3f5;--fg:#1a1a1c;--card:#e4e4e8;--card2:#d4d4d8;--panel:#fff;--seg:#ececee;--line:#d0d0d4;--field:#fff;--btn:#2a2a2e;--btnfg:#fff;--mic:#2a2a2e;--cred:#0d7a45;--ghost:#ececee}
+.pals{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
+.sw{width:36px;height:36px;border-radius:50%;border:2px solid transparent;padding:0}
+.sw.on{border-color:var(--fg)}
+.sw.kashu{background:linear-gradient(135deg,#0b5c48,#7af0b0)}
+.sw.oceano{background:linear-gradient(135deg,#12597a,#7ec8e3)}
+.sw.vinho{background:linear-gradient(135deg,#7a2434,#e8a0ab)}
+.sw.areia{background:linear-gradient(135deg,#6a5420,#e8d4a0)}
+.sw.grafite{background:linear-gradient(135deg,#2a2a2e,#d0d0d4)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;width:100%;overflow-x:hidden}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--fg);min-height:100dvh;padding:calc(12px + env(safe-area-inset-top)) 14px calc(24px + env(safe-area-inset-bottom))}
@@ -88,6 +104,7 @@ h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(
       <h1>Kashu</h1>
       <p class="tag">Seu financeiro mais simples</p>
     </div>
+    <button type="button" class="tema" id="palBtn">Cor</button>
     <button type="button" class="tema" id="temaBtn">Auto</button>
   </div>
   <div class="card">
@@ -150,6 +167,21 @@ h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(
     </form>
   </div>
 </div>
+<div class="panel" id="palBox">
+  <div class="sheet">
+    <h3 style="margin:0 0 8px">Paleta de cores</h3>
+    <p class="hint">Escolha uma paleta. Vale no claro e no escuro.</p>
+    <div class="pals">
+      <button type="button" class="sw kashu" data-pal="kashu" aria-label="Kashu"></button>
+      <button type="button" class="sw oceano" data-pal="oceano" aria-label="Oceano"></button>
+      <button type="button" class="sw vinho" data-pal="vinho" aria-label="Vinho"></button>
+      <button type="button" class="sw areia" data-pal="areia" aria-label="Areia"></button>
+      <button type="button" class="sw grafite" data-pal="grafite" aria-label="Grafite"></button>
+    </div>
+    <p class="hint" id="palNome">Kashu</p>
+    <button class="btn ghost" type="button" id="palClose">Fechar</button>
+  </div>
+</div>
 <div class="panel" id="baixa">
   <div class="sheet">
     <h3 style="margin:0 0 8px">Lançamento previsto</h3>
@@ -187,6 +219,20 @@ temaBtn.onclick=()=>{
 };
 aplicarTema();
 try{window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if(modoAtual()==="auto")aplicarTema()})}catch(e){}
+const PAL="kashu.paleta";
+const NOMES={kashu:"Kashu",oceano:"Oceano",vinho:"Vinho",areia:"Areia",grafite:"Grafite"};
+function aplicarPal(p){
+  const pal=p||localStorage.getItem(PAL)||"kashu";
+  localStorage.setItem(PAL,pal);
+  document.documentElement.setAttribute("data-pal",pal==="kashu"?"":pal);
+  if(document.documentElement.getAttribute("data-pal")==="") document.documentElement.removeAttribute("data-pal");
+  document.querySelectorAll(".sw").forEach(s=>s.classList.toggle("on",s.dataset.pal===pal));
+  if(palNome) palNome.textContent=NOMES[pal]||pal;
+}
+palBtn.onclick=()=>{aplicarPal();palBox.classList.add("open")};
+palClose.onclick=()=>palBox.classList.remove("open");
+document.querySelectorAll(".sw").forEach(s=>s.onclick=()=>aplicarPal(s.dataset.pal));
+aplicarPal();
 function parseData(text){
   const t=fold(text);
   if(/ontem/.test(t)) return addDays(hojeISO(),-1);
