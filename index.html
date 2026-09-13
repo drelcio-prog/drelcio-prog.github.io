@@ -45,8 +45,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .mini{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .mini div{background:rgba(127,127,127,.12);border-radius:12px;padding:8px}
 .mini span{display:block;font-size:.68rem;opacity:.8}
-.prevsaldo{margin-top:8px;padding-top:8px;border-top:1px solid rgba(127,127,127,.2);display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:.78rem}
-.prevsaldo strong{font-size:1.05rem}
+.prevsaldo{margin-top:8px;padding-top:8px;border-top:1px solid rgba(127,127,127,.2);display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.78rem}
+.prevsaldo strong{font-size:1.05rem;flex:1;text-align:right}
 .hint{font-size:.78rem;color:var(--hint);text-align:center;margin:10px 0}
 .seg{display:grid;grid-template-columns:1fr 1fr;background:var(--seg);border-radius:14px;padding:4px;margin:8px 0}
 .seg button{border:0;background:transparent;color:var(--muted);border-radius:11px;padding:11px 8px}
@@ -82,7 +82,8 @@ h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(
 <button type="button" class="tema" id="palBtn">Cor</button>
 <button type="button" class="tema" id="temaBtn">Auto</button>
 </div>
-<div class="card"><div class="label">Saldo disponível</div><div class="val" id="saldo">R$ 0,00</div><div class="mini"><div><span>Recebido hoje</span><strong id="rec">R$ 0,00</strong></div><div><span>Pago hoje</span><strong id="pag">R$ 0,00</strong></div></div><div class="prevsaldo"><span>Saldo previsto</span><strong id="saldoPrev">R$ 0,00</strong></div></div>
+<div class="card"><div class="label">Saldo disponível</div><div class="val" id="saldo">R$ 0,00</div><div class="mini"><div><span>Recebido hoje</span><strong id="rec">R$ 0,00</strong></div><div><span>Pago hoje</span><strong id="pag">R$ 0,00</strong></div></div>
+<div class="prevsaldo" id="openComp"><span>Saldo previsto</span><strong id="saldoPrev">R$ 0,00</strong><button class="plus" type="button">+</button></div></div>
 <p class="hint">Sem a palavra “pago” ou “recebido”, o lançamento entra como previsto. Dê baixa no +.</p>
 <div class="seg"><button type="button" id="tVoz" class="on">Por voz</button><button type="button" id="tMan">Manual</button></div>
 <div id="boxVoz"><div class="micwrap"><button class="mic" id="mic" type="button">🎤</button></div><p class="hint" id="tr">Toque no microfone</p></div>
@@ -94,6 +95,7 @@ h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(
 </div>
 <div class="panel" id="ov"><div class="sheet"><h3 style="margin:0 0 8px">Revisar</h3><p class="hint" id="ovTxt"></p><form id="rev"><label>Descrição<input name="d" required></label><div class="g2"><label>Tipo<select name="t"><option value="debito">Despesa</option><option value="credito">Receita</option></select></label><label>Valor<input name="v" type="number" step="0.01" min="0" required inputmode="decimal"></label></div><label>Data do lançamento<input name="dt" type="date" required></label><label>Situação<select name="p"><option value="0" selected>Previsto</option><option value="1">Pago / Recebido</option></select></label><button class="btn" type="submit">Confirmar</button><button class="btn ghost" type="button" id="cancel">Cancelar</button></form></div></div>
 <div class="panel" id="palBox"><div class="sheet"><h3 style="margin:0 0 8px">Harmonia de cores</h3><p class="hint">Todas partem do verde Kashu (#1AA36F).</p><div class="pals"><button type="button" class="sw kashu" data-pal="kashu"></button><button type="button" class="sw analoga" data-pal="analoga"></button><button type="button" class="sw complementar" data-pal="complementar"></button><button type="button" class="sw triade" data-pal="triade"></button><button type="button" class="sw quente" data-pal="quente"></button><button type="button" class="sw mono" data-pal="mono"></button></div><p class="hint" id="palNome">Marca Kashu</p><button class="btn ghost" type="button" id="palClose">Fechar</button></div></div>
+<div class="panel" id="compBox"><div class="sheet"><h3 style="margin:0 0 8px">Composição do saldo previsto</h3><div id="compLista"></div><button class="btn ghost" type="button" id="compClose">Fechar</button></div></div>
 <div class="panel" id="prevBox"><div class="sheet"><h3 style="margin:0 0 4px" id="prevTit">Previsto</h3><p class="hint" id="prevTot"></p><div id="prevLista"></div><button class="btn ghost" type="button" id="prevClose">Fechar</button></div></div>
 <div class="panel" id="baixa"><div class="sheet"><h3 style="margin:0 0 8px">Lançamento previsto</h3><p id="bxDesc" style="margin:0 0 4px"></p><p class="hint" id="bxMeta"></p><label class="checkrow"><input type="checkbox" id="bxCheck"> Dar baixa (pago / recebido)</label><button class="btn" type="button" id="bxOk">Salvar</button><button class="btn ghost" type="button" id="bxClose">Fechar</button></div></div>
 <script>
@@ -136,6 +138,9 @@ cancel.onclick=()=>ov.classList.remove("open");
 rev.onsubmit=e=>{e.preventDefault();const fd=new FormData(rev);gravar({d:fd.get("d"),t:fd.get("t"),v:fd.get("v"),p:fd.get("p")==="1",dt:fd.get("dt")});ov.classList.remove("open")};
 bxClose.onclick=()=>baixa.classList.remove("open");
 bxOk.onclick=()=>{const id=baixa.dataset.id;if(bxCheck.checked){const s=load();const m=s.movs.find(x=>x.id===id);if(m){m.pago=true;m.data=m.data||hojeISO()}save(s);render()}baixa.classList.remove("open")};
+function linhaComp(rot,val,cls){return `<div class="item"><span>${rot}</span><strong class="${cls||""}">${val}</strong></div>`}
+openComp.onclick=()=>{const t=tot(load());let recPago=0,despPago=0;load().movs.forEach(m=>{if(!m.pago)return;const v=Number(m.valor)||0;if(m.tipo==="credito")recPago+=v;else despPago+=v});compLista.innerHTML=[linhaComp("Receitas baixadas","+ "+brl(recPago),"cred"),linhaComp("Despesas baixadas","\u2212 "+brl(despPago),""),linhaComp("Saldo disponível (baixado)",brl(t.saldo),""),linhaComp("Receitas previstas","+ "+brl(t.prevR),"cred"),linhaComp("Despesas previstas","\u2212 "+brl(t.prevD),""),linhaComp("Saldo previsto",brl(t.saldo+t.prevR-t.prevD),"")].join("");compBox.classList.add("open")};
+compClose.onclick=()=>compBox.classList.remove("open");
 openDesp.onclick=()=>listaPrev("debito");
 openRec.onclick=()=>listaPrev("credito");
 prevClose.onclick=()=>prevBox.classList.remove("open");
