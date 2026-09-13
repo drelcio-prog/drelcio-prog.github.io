@@ -8,34 +8,27 @@
 <meta name="theme-color" content="#0b1210" id="metaTheme">
 <title>Kashu Grok</title>
 <style>
-:root{
-  --bg:#0b1210;--fg:#f3eee4;--muted:#9aa7a1;--hint:#b7c2bb;
-  --card:#10261e;--card2:#1a4333;--panel:#14201b;--seg:#1b2a24;
-  --line:#2a3d35;--field:#0b1210;--btn:#8fd4b4;--btnfg:#0b1210;
-  --mic:#1a5c44;--cred:#4ade80;--ghost:#1b2a24;
-}
-html.claro{
-  --bg:#f4f7f5;--fg:#12211b;--muted:#5b6b64;--hint:#5b6b64;
-  --card:#dceee4;--card2:#c5e2d3;--panel:#ffffff;--seg:#e3eee8;
-  --line:#c9d7d0;--field:#ffffff;--btn:#1a5c44;--btnfg:#fff;
-  --mic:#1a5c44;--cred:#0d7a45;--ghost:#e3eee8;
-}
-html[data-pal="oceano"]{--card:#0f2233;--card2:#163a52;--panel:#12283a;--seg:#1a3344;--line:#2a4a5c;--field:#0b1a24;--btn:#7ec8e3;--mic:#1a6a8a;--cred:#5ee0ff;--ghost:#1a3344}
-html.claro[data-pal="oceano"]{--bg:#eef6fa;--fg:#102432;--card:#cfe6f2;--card2:#b7d7e8;--panel:#fff;--seg:#dceaf1;--line:#b7cdd8;--field:#fff;--btn:#12597a;--btnfg:#fff;--mic:#12597a;--cred:#0b6b8a;--ghost:#dceaf1}
-html[data-pal="vinho"]{--card:#2a1418;--card2:#4a1f28;--panel:#241216;--seg:#3a1c24;--line:#5a2a34;--field:#1a0c10;--btn:#e8a0ab;--mic:#8a3040;--cred:#f0b4bc;--ghost:#3a1c24}
-html.claro[data-pal="vinho"]{--bg:#faf4f5;--fg:#2a1418;--card:#f0d5d9;--card2:#e4c0c6;--panel:#fff;--seg:#f3e4e6;--line:#e0c8cc;--field:#fff;--btn:#7a2434;--btnfg:#fff;--mic:#7a2434;--cred:#8a2030;--ghost:#f3e4e6}
-html[data-pal="areia"]{--card:#2a2418;--card2:#4a3d28;--panel:#241e14;--seg:#3a3220;--line:#5a4a30;--field:#1a160e;--btn:#e8d4a0;--mic:#8a7030;--cred:#f0e0a8;--ghost:#3a3220}
-html.claro[data-pal="areia"]{--bg:#faf7f0;--fg:#2a2414;--card:#efe4c8;--card2:#e4d4b0;--panel:#fff;--seg:#f3ead8;--line:#e0d4b8;--field:#fff;--btn:#6a5420;--btnfg:#fff;--mic:#6a5420;--cred:#6a5420;--ghost:#f3ead8}
-html[data-pal="grafite"]{--card:#1c1c1e;--card2:#2c2c30;--panel:#222226;--seg:#2a2a2e;--line:#3a3a40;--field:#141416;--btn:#d0d0d4;--mic:#4a4a50;--cred:#c8f0d4;--ghost:#2a2a2e}
-html.claro[data-pal="grafite"]{--bg:#f3f3f5;--fg:#1a1a1c;--card:#e4e4e8;--card2:#d4d4d8;--panel:#fff;--seg:#ececee;--line:#d0d0d4;--field:#fff;--btn:#2a2a2e;--btnfg:#fff;--mic:#2a2a2e;--cred:#0d7a45;--ghost:#ececee}
+:root{--bg:#0b1210;--fg:#f3eee4;--muted:#9aa7a1;--hint:#b7c2bb;--card:#10261e;--card2:#1a4333;--panel:#14201b;--seg:#1b2a24;--line:#2a3d35;--field:#0b1210;--btn:#8fd4b4;--btnfg:#0b1210;--mic:#1a5c44;--cred:#4ade80;--ghost:#1b2a24}
+html.claro{--bg:#f4f7f5;--fg:#12211b;--muted:#5b6b64;--hint:#5b6b64;--card:#dceee4;--card2:#c5e2d3;--panel:#ffffff;--seg:#e3eee8;--line:#c9d7d0;--field:#ffffff;--btn:#1a5c44;--btnfg:#fff;--mic:#1a5c44;--cred:#0d7a45;--ghost:#e3eee8}
+html[data-pal="analoga"]{--card:#10261e;--card2:#1a4a38;--panel:#14241e;--seg:#1b3228;--line:#2a4a3c;--field:#0b1612;--btn:#8fd4b4;--mic:#1a7a58;--cred:#7af0b0;--ghost:#1b3228}
+html.claro[data-pal="analoga"]{--bg:#eef7f2;--fg:#10241c;--card:#cfe8db;--card2:#b7ddcc;--panel:#fff;--seg:#dceee4;--line:#b7d4c6;--field:#fff;--btn:#0b5c48;--btnfg:#fff;--mic:#0b5c48;--cred:#0d7a45;--ghost:#dceee4}
+html[data-pal="complementar"]{--card:#1a1214;--card2:#2a1c22;--panel:#1c1418;--seg:#2a1c22;--line:#4a2a32;--field:#120c0e;--btn:#f0a8b0;--mic:#1a5c44;--cred:#7af0b0;--ghost:#2a1c22}
+html.claro[data-pal="complementar"]{--bg:#f7f3f2;--fg:#1a1214;--card:#e8d4d6;--card2:#dcc4c8;--panel:#fff;--seg:#f0e4e4;--line:#e0c8cc;--field:#fff;--btn:#8a3040;--btnfg:#fff;--mic:#0b5c48;--cred:#0d7a45;--ghost:#f0e4e4}
+html[data-pal="triade"]{--card:#16141f;--card2:#2a2440;--panel:#1a1828;--seg:#262038;--line:#3a3450;--field:#100e18;--btn:#d4c4f0;--mic:#5c48a0;--cred:#7af0b0;--ghost:#262038}
+html.claro[data-pal="triade"]{--bg:#f4f2f8;--fg:#16141f;--card:#ddd6ee;--card2:#cfc4e4;--panel:#fff;--seg:#ece8f4;--line:#d4cce0;--field:#fff;--btn:#4a3880;--btnfg:#fff;--mic:#0b5c48;--cred:#0d7a45;--ghost:#ece8f4}
+html[data-pal="quente"]{--card:#24180e;--card2:#3a2814;--panel:#1e160c;--seg:#322414;--line:#4a3820;--field:#140e08;--btn:#f0c878;--mic:#8a5c18;--cred:#7af0b0;--ghost:#322414}
+html.claro[data-pal="quente"]{--bg:#faf6ee;--fg:#24180e;--card:#efe0c4;--card2:#e4d0a8;--panel:#fff;--seg:#f3ead8;--line:#e0d0b0;--field:#fff;--btn:#6a4810;--btnfg:#fff;--mic:#0b5c48;--cred:#0d7a45;--ghost:#f3ead8}
+html[data-pal="mono"]{--card:#0e1a16;--card2:#163028;--panel:#12201c;--seg:#1a2c26;--line:#2a4038;--field:#0a1210;--btn:#a8e0c8;--mic:#1a5c44;--cred:#c8f8e0;--ghost:#1a2c26}
+html.claro[data-pal="mono"]{--bg:#f2f7f5;--fg:#0e1a16;--card:#d4e8e0;--card2:#c0dcd0;--panel:#fff;--seg:#e4eee8;--line:#c4d8d0;--field:#fff;--btn:#0b5c48;--btnfg:#fff;--mic:#0b5c48;--cred:#0b5c48;--ghost:#e4eee8}
 .pals{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
 .sw{width:36px;height:36px;border-radius:50%;border:2px solid transparent;padding:0}
 .sw.on{border-color:var(--fg)}
 .sw.kashu{background:linear-gradient(135deg,#0b5c48,#7af0b0)}
-.sw.oceano{background:linear-gradient(135deg,#12597a,#7ec8e3)}
-.sw.vinho{background:linear-gradient(135deg,#7a2434,#e8a0ab)}
-.sw.areia{background:linear-gradient(135deg,#6a5420,#e8d4a0)}
-.sw.grafite{background:linear-gradient(135deg,#2a2a2e,#d0d0d4)}
+.sw.analoga{background:linear-gradient(135deg,#0b5c48,#3ccf88 50%,#7ec8e3)}
+.sw.complementar{background:linear-gradient(135deg,#0b5c48 50%,#c44536)}
+.sw.triade{background:conic-gradient(#1aa36f,#c9a227,#6b4ea0)}
+.sw.quente{background:linear-gradient(135deg,#0b5c48,#e8b84a)}
+.sw.mono{background:linear-gradient(135deg,#06382c,#1aa36f,#a8e0c8)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;width:100%;overflow-x:hidden}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--fg);min-height:100dvh;padding:calc(12px + env(safe-area-inset-top)) 14px calc(24px + env(safe-area-inset-bottom))}
@@ -82,119 +75,28 @@ label{display:grid;gap:4px;font-size:.75rem;color:var(--hint);margin:8px 0}
 .checkrow{display:flex;align-items:center;gap:10px;margin:12px 0;color:var(--fg)}
 .checkrow input{width:22px;height:22px;accent-color:var(--btn)}
 h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:18px 0 4px}
-</style>
-</head>
-<body>
+</style></head><body>
 <div class="app">
   <div class="top">
-    <svg class="logo-k" viewBox="0 0 80 80" aria-label="Kashu">
-      <defs>
-        <linearGradient id="kg" x1="0" y1="1" x2="1" y2="0">
-          <stop offset="0" stop-color="#0b5c48"/>
-          <stop offset=".5" stop-color="#1aa36f"/>
-          <stop offset="1" stop-color="#7af0b0"/>
-        </linearGradient>
-      </defs>
-      <path fill="url(#kg)" d="M18 8c0-3 2-6 6-6h10c3 0 6 3 6 6v28l18-16c2-2 6-2 8 0l7 7c2 2 2 6 0 8L52 50l16 18c2 2 2 6 0 8l-7 7c-2 2-6 2-8 0L40 66v8c0 3-3 6-6 6H24c-4 0-6-3-6-6V8z"/>
-      <rect x="22" y="46" width="5" height="14" rx="1.5" fill="#8ff0b8"/>
-      <rect x="29" y="38" width="5" height="22" rx="1.5" fill="#5fe0a0"/>
-      <rect x="36" y="28" width="5" height="32" rx="1.5" fill="#3ccf88"/>
-    </svg>
-    <div class="brand">
-      <h1>Kashu</h1>
-      <p class="tag">Seu financeiro mais simples</p>
-    </div>
+    <svg class="logo-k" viewBox="0 0 80 80" aria-label="Kashu"><defs><linearGradient id="kg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#0b5c48"/><stop offset=".5" stop-color="#1aa36f"/><stop offset="1" stop-color="#7af0b0"/></linearGradient></defs><path fill="url(#kg)" d="M18 8c0-3 2-6 6-6h10c3 0 6 3 6 6v28l18-16c2-2 6-2 8 0l7 7c2 2 2 6 0 8L52 50l16 18c2 2 2 6 0 8l-7 7c-2 2-6 2-8 0L40 66v8c0 3-3 6-6 6H24c-4 0-6-3-6-6V8z"/><rect x="22" y="46" width="5" height="14" rx="1.5" fill="#8ff0b8"/><rect x="29" y="38" width="5" height="22" rx="1.5" fill="#5fe0a0"/><rect x="36" y="28" width="5" height="32" rx="1.5" fill="#3ccf88"/></svg>
+    <div class="brand"><h1>Kashu</h1><p class="tag">Seu financeiro mais simples</p></div>
     <button type="button" class="tema" id="palBtn">Cor</button>
     <button type="button" class="tema" id="temaBtn">Auto</button>
   </div>
-  <div class="card">
-    <div class="label">Saldo disponível</div>
-    <div class="val" id="saldo">R$ 0,00</div>
-    <div class="mini">
-      <div><span>Recebido hoje</span><strong id="rec">R$ 0,00</strong></div>
-      <div><span>Pago hoje</span><strong id="pag">R$ 0,00</strong></div>
-    </div>
-  </div>
+  <div class="card"><div class="label">Saldo disponível</div><div class="val" id="saldo">R$ 0,00</div><div class="mini"><div><span>Recebido hoje</span><strong id="rec">R$ 0,00</strong></div><div><span>Pago hoje</span><strong id="pag">R$ 0,00</strong></div></div></div>
   <p class="hint">Sem a palavra “pago” ou “recebido”, o lançamento entra como previsto. Dê baixa no +.</p>
-  <div class="seg">
-    <button type="button" id="tVoz" class="on">Por voz</button>
-    <button type="button" id="tMan">Manual</button>
-  </div>
-  <div id="boxVoz">
-    <div class="micwrap"><button class="mic" id="mic" type="button">🎤</button></div>
-    <p class="hint" id="tr">Toque no microfone</p>
-  </div>
-  <form id="boxMan" class="hide">
-    <label>Descrição<input name="d" required></label>
-    <div class="g2">
-      <label>Tipo<select name="t"><option value="debito">Despesa</option><option value="credito">Receita</option></select></label>
-      <label>Valor<input name="v" type="number" step="0.01" min="0" required inputmode="decimal"></label>
-    </div>
-    <label>Data do lançamento<input name="dt" type="date" required></label>
-    <label>Situação<select name="p"><option value="0" selected>Previsto</option><option value="1">Pago / Recebido</option></select></label>
-    <button class="btn" type="submit">Lançar</button>
-  </form>
+  <div class="seg"><button type="button" id="tVoz" class="on">Por voz</button><button type="button" id="tMan">Manual</button></div>
+  <div id="boxVoz"><div class="micwrap"><button class="mic" id="mic" type="button">🎤</button></div><p class="hint" id="tr">Toque no microfone</p></div>
+  <form id="boxMan" class="hide"><label>Descrição<input name="d" required></label><div class="g2"><label>Tipo<select name="t"><option value="debito">Despesa</option><option value="credito">Receita</option></select></label><label>Valor<input name="v" type="number" step="0.01" min="0" required inputmode="decimal"></label></div><label>Data do lançamento<input name="dt" type="date" required></label><label>Situação<select name="p"><option value="0" selected>Previsto</option><option value="1">Pago / Recebido</option></select></label><button class="btn" type="submit">Lançar</button></form>
   <h2 class="sec">Previsto</h2>
-  <div class="cols">
-    <div class="col">
-      <h3>Despesa</h3>
-      <div class="tot" id="totDesp">R$ 0,00</div>
-      <div id="colDesp"></div>
-    </div>
-    <div class="col">
-      <h3>Receita</h3>
-      <div class="tot cred" id="totRec">R$ 0,00</div>
-      <div id="colRec"></div>
-    </div>
-  </div>
-  <h2 class="sec">Realizado</h2>
-  <div id="lista"></div>
+  <div class="cols"><div class="col"><h3>Despesa</h3><div class="tot" id="totDesp">R$ 0,00</div><div id="colDesp"></div></div><div class="col"><h3>Receita</h3><div class="tot cred" id="totRec">R$ 0,00</div><div id="colRec"></div></div></div>
+  <h2 class="sec">Realizado</h2><div id="lista"></div>
 </div>
-<div class="panel" id="ov">
-  <div class="sheet">
-    <h3 style="margin:0 0 8px">Revisar</h3>
-    <p class="hint" id="ovTxt"></p>
-    <form id="rev">
-      <label>Descrição<input name="d" required></label>
-      <div class="g2">
-        <label>Tipo<select name="t"><option value="debito">Despesa</option><option value="credito">Receita</option></select></label>
-        <label>Valor<input name="v" type="number" step="0.01" min="0" required inputmode="decimal"></label>
-      </div>
-      <label>Data do lançamento<input name="dt" type="date" required></label>
-      <label>Situação<select name="p"><option value="0" selected>Previsto</option><option value="1">Pago / Recebido</option></select></label>
-      <button class="btn" type="submit">Confirmar</button>
-      <button class="btn ghost" type="button" id="cancel">Cancelar</button>
-    </form>
-  </div>
-</div>
-<div class="panel" id="palBox">
-  <div class="sheet">
-    <h3 style="margin:0 0 8px">Paleta de cores</h3>
-    <p class="hint">Escolha uma paleta. Vale no claro e no escuro.</p>
-    <div class="pals">
-      <button type="button" class="sw kashu" data-pal="kashu" aria-label="Kashu"></button>
-      <button type="button" class="sw oceano" data-pal="oceano" aria-label="Oceano"></button>
-      <button type="button" class="sw vinho" data-pal="vinho" aria-label="Vinho"></button>
-      <button type="button" class="sw areia" data-pal="areia" aria-label="Areia"></button>
-      <button type="button" class="sw grafite" data-pal="grafite" aria-label="Grafite"></button>
-    </div>
-    <p class="hint" id="palNome">Kashu</p>
-    <button class="btn ghost" type="button" id="palClose">Fechar</button>
-  </div>
-</div>
-<div class="panel" id="baixa">
-  <div class="sheet">
-    <h3 style="margin:0 0 8px">Lançamento previsto</h3>
-    <p id="bxDesc" style="margin:0 0 4px"></p>
-    <p class="hint" id="bxMeta"></p>
-    <label class="checkrow"><input type="checkbox" id="bxCheck"> Dar baixa (pago / recebido)</label>
-    <button class="btn" type="button" id="bxOk">Salvar</button>
-    <button class="btn ghost" type="button" id="bxClose">Fechar</button>
-  </div>
-</div>
+<div class="panel" id="ov"><div class="sheet"><h3 style="margin:0 0 8px">Revisar</h3><p class="hint" id="ovTxt"></p><form id="rev"><label>Descrição<input name="d" required></label><div class="g2"><label>Tipo<select name="t"><option value="debito">Despesa</option><option value="credito">Receita</option></select></label><label>Valor<input name="v" type="number" step="0.01" min="0" required inputmode="decimal"></label></div><label>Data do lançamento<input name="dt" type="date" required></label><label>Situação<select name="p"><option value="0" selected>Previsto</option><option value="1">Pago / Recebido</option></select></label><button class="btn" type="submit">Confirmar</button><button class="btn ghost" type="button" id="cancel">Cancelar</button></form></div></div>
+<div class="panel" id="palBox"><div class="sheet"><h3 style="margin:0 0 8px">Harmonia de cores</h3><p class="hint">Todas partem do verde Kashu (#1AA36F).</p><div class="pals"><button type="button" class="sw kashu" data-pal="kashu"></button><button type="button" class="sw analoga" data-pal="analoga"></button><button type="button" class="sw complementar" data-pal="complementar"></button><button type="button" class="sw triade" data-pal="triade"></button><button type="button" class="sw quente" data-pal="quente"></button><button type="button" class="sw mono" data-pal="mono"></button></div><p class="hint" id="palNome">Marca Kashu</p><button class="btn ghost" type="button" id="palClose">Fechar</button></div></div>
+<div class="panel" id="baixa"><div class="sheet"><h3 style="margin:0 0 8px">Lançamento previsto</h3><p id="bxDesc" style="margin:0 0 4px"></p><p class="hint" id="bxMeta"></p><label class="checkrow"><input type="checkbox" id="bxCheck"> Dar baixa (pago / recebido)</label><button class="btn" type="button" id="bxOk">Salvar</button><button class="btn ghost" type="button" id="bxClose">Fechar</button></div></div>
 <script>
-const KEY="kashu.pages.v2";
-const THEME="kashu.tema";
+const KEY="kashu.pages.v2";const THEME="kashu.tema";
 const brl=n=>Number(n||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
 function uid(){return "k"+Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
@@ -204,143 +106,37 @@ function fmtData(iso){if(!iso)return "";const [y,m,d]=iso.split("-");return d+"/
 function fold(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
 function sistemaEscuro(){return !!(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)}
 function modoAtual(){return localStorage.getItem(THEME)||"auto"}
-function aplicarTema(pref){
-  if(pref) localStorage.setItem(THEME,pref);
-  const modo=modoAtual();
-  const claro=modo==="claro"||(modo==="auto"&&!sistemaEscuro());
-  document.documentElement.classList.toggle("claro",claro);
-  temaBtn.textContent=modo==="auto"?"Auto":(claro?"Escuro":"Claro");
-  metaTheme.setAttribute("content",claro?"#f4f7f5":"#0b1210");
-}
-temaBtn.onclick=()=>{
-  const seq=["auto","claro","escuro"];
-  const i=seq.indexOf(modoAtual());
-  aplicarTema(seq[(i+1)%seq.length]);
-};
-aplicarTema();
+function aplicarTema(pref){if(pref) localStorage.setItem(THEME,pref);const modo=modoAtual();const claro=modo==="claro"||(modo==="auto"&&!sistemaEscuro());document.documentElement.classList.toggle("claro",claro);temaBtn.textContent=modo==="auto"?"Auto":(claro?"Escuro":"Claro");metaTheme.setAttribute("content",claro?"#f4f7f5":"#0b1210")}
+temaBtn.onclick=()=>{const seq=["auto","claro","escuro"];aplicarTema(seq[(seq.indexOf(modoAtual())+1)%3])};aplicarTema();
 try{window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if(modoAtual()==="auto")aplicarTema()})}catch(e){}
 const PAL="kashu.paleta";
-const NOMES={kashu:"Kashu",oceano:"Oceano",vinho:"Vinho",areia:"Areia",grafite:"Grafite"};
-function aplicarPal(p){
-  const pal=p||localStorage.getItem(PAL)||"kashu";
-  localStorage.setItem(PAL,pal);
-  document.documentElement.setAttribute("data-pal",pal==="kashu"?"":pal);
-  if(document.documentElement.getAttribute("data-pal")==="") document.documentElement.removeAttribute("data-pal");
-  document.querySelectorAll(".sw").forEach(s=>s.classList.toggle("on",s.dataset.pal===pal));
-  if(palNome) palNome.textContent=NOMES[pal]||pal;
-}
-palBtn.onclick=()=>{aplicarPal();palBox.classList.add("open")};
-palClose.onclick=()=>palBox.classList.remove("open");
-document.querySelectorAll(".sw").forEach(s=>s.onclick=()=>aplicarPal(s.dataset.pal));
-aplicarPal();
-function parseData(text){
-  const t=fold(text);
-  if(/ontem/.test(t)) return addDays(hojeISO(),-1);
-  if(/amanha/.test(t)) return addDays(hojeISO(),1);
-  const br=t.match(/(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?/);
-  if(br){ let y=br[3]?Number(br[3]):new Date().getFullYear(); if(y<100) y+=2000; const z=n=>String(n).padStart(2,"0"); return y+"-"+z(br[2])+"-"+z(br[1]); }
-  return hojeISO();
-}
-function load(){
-  try{
-    const s=JSON.parse(localStorage.getItem(KEY))||{movs:[]};
-    if(!Array.isArray(s.movs)) s.movs=[];
-    s.movs.forEach(m=>{ if(!m.id) m.id=uid(); if(!m.data) m.data=hojeISO(); });
-    return s;
-  }catch{return{movs:[]}}
-}
-function tot(s){
-  let saldo=0,rec=0,pag=0,prevD=0,prevR=0; const h=hojeISO();
-  s.movs.forEach(m=>{
-    const v=Number(m.valor)||0;
-    if(!m.pago){ if(m.tipo==="credito") prevR+=v; else prevD+=v; return; }
-    saldo += m.tipo==="credito"?v:-v;
-    if(m.data===h){ if(m.tipo==="credito") rec+=v; else pag+=v; }
-  });
-  s.saldo=saldo; return {saldo,rec,pag,prevD,prevR};
-}
-function save(s){ tot(s); localStorage.setItem(KEY,JSON.stringify(s)); }
-function parseValor(text){
-  const t=fold(text).replace(/reais?/g," ").replace(/r\$/g," ");
-  const m=t.match(/(\d{1,3}(?:\.\d{3})+,\d{1,2}|\d+,\d{1,2}|\d+\.\d{1,2}|\d+)/);
-  if(!m)return null; let raw=m[1];
-  if(raw.includes(",")&&raw.includes(".")) raw=raw.replace(/\./g,"").replace(",",".");
-  else if(raw.includes(",")) raw=raw.replace(",",".");
-  const n=Number(raw); return Number.isFinite(n)?n:null;
-}
-function parseTipo(text){const t=fold(text); if(/credito|receita|recebi|receber|honorario/.test(t)) return "credito"; return "debito"}
-function parsePago(text){
-  const t=fold(text);
-  if(/pendente|previsto|a pagar|a receber/.test(t)) return false;
-  return /\b(pago|paguei|pagou|recebido|recebi)\b/.test(t);
-}
+const NOMES={kashu:"Marca — verde oficial",analoga:"Análoga — verde + azul",complementar:"Complementar — verde + coral",triade:"Tríade — verde + ouro + violeta",quente:"Complementar dividida — verde + âmbar",mono:"Monocromática — só verdes"};
+function aplicarPal(p){let pal=p||localStorage.getItem(PAL)||"kashu";if(!NOMES[pal]) pal="kashu";localStorage.setItem(PAL,pal);document.documentElement.setAttribute("data-pal",pal==="kashu"?"":pal);if(!document.documentElement.getAttribute("data-pal")) document.documentElement.removeAttribute("data-pal");document.querySelectorAll(".sw").forEach(s=>s.classList.toggle("on",s.dataset.pal===pal));if(palNome) palNome.textContent=NOMES[pal]||pal}
+palBtn.onclick=()=>{aplicarPal();palBox.classList.add("open")};palClose.onclick=()=>palBox.classList.remove("open");document.querySelectorAll(".sw").forEach(s=>s.onclick=()=>aplicarPal(s.dataset.pal));aplicarPal();
+function parseData(text){const t=fold(text);if(/ontem/.test(t)) return addDays(hojeISO(),-1);if(/amanha/.test(t)) return addDays(hojeISO(),1);const br=t.match(/(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?/);if(br){let y=br[3]?Number(br[3]):new Date().getFullYear();if(y<100)y+=2000;const z=n=>String(n).padStart(2,"0");return y+"-"+z(br[2])+"-"+z(br[1])}return hojeISO()}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY))||{movs:[]};if(!Array.isArray(s.movs))s.movs=[];s.movs.forEach(m=>{if(!m.id)m.id=uid();if(!m.data)m.data=hojeISO()});return s}catch{return{movs:[]}}}
+function tot(s){let saldo=0,rec=0,pag=0,prevD=0,prevR=0;const h=hojeISO();s.movs.forEach(m=>{const v=Number(m.valor)||0;if(!m.pago){if(m.tipo==="credito")prevR+=v;else prevD+=v;return}saldo+=m.tipo==="credito"?v:-v;if(m.data===h){if(m.tipo==="credito")rec+=v;else pag+=v}});s.saldo=saldo;return{saldo,rec,pag,prevD,prevR}}
+function save(s){tot(s);localStorage.setItem(KEY,JSON.stringify(s))}
+function parseValor(text){const t=fold(text).replace(/reais?/g," ").replace(/r\$/g," ");const m=t.match(/(\d{1,3}(?:\.\d{3})+,\d{1,2}|\d+,\d{1,2}|\d+\.\d{1,2}|\d+)/);if(!m)return null;let raw=m[1];if(raw.includes(",")&&raw.includes("."))raw=raw.replace(/\./g,"").replace(",",".");else if(raw.includes(","))raw=raw.replace(",",".");const n=Number(raw);return Number.isFinite(n)?n:null}
+function parseTipo(text){const t=fold(text);if(/credito|receita|recebi|receber|honorario/.test(t))return"credito";return"debito"}
+function parsePago(text){const t=fold(text);if(/pendente|previsto|a pagar|a receber/.test(t))return false;return/\b(pago|paguei|pagou|recebido|recebi)\b/.test(t)}
 function parseDesc(text){return String(text||"").replace(/lancar|lance/ig,"").replace(/\b(debito|credito|despesa|receita|pago|recebido|pendente|previsto|hoje|ontem|amanha|reais?|como)\b/ig,"").replace(/\d[\d.,]*/g,"").replace(/\s+/g," ").trim()||"Lançamento"}
-function ehSaldo(t){return /saldo/.test(fold(t)) && /qual|quanto|meu|disponivel/.test(fold(t))}
-function render(){
-  const s=load(); const t=tot(s); save(s);
-  saldo.textContent=brl(t.saldo); rec.textContent=brl(t.rec); pag.textContent=brl(t.pag);
-  totDesp.textContent=brl(t.prevD); totRec.textContent=brl(t.prevR);
-  const pend=s.movs.filter(m=>!m.pago);
-  const ok=s.movs.filter(m=>m.pago);
-  colDesp.innerHTML=pend.filter(m=>m.tipo!=="credito").slice().reverse().map(rowPrev).join("")||"<p class='hint'>Nenhuma</p>";
-  colRec.innerHTML=pend.filter(m=>m.tipo==="credito").slice().reverse().map(rowPrev).join("")||"<p class='hint'>Nenhuma</p>";
-  lista.innerHTML=ok.slice().reverse().slice(0,40).map(m=>`<div class="item"><span>${m.descricao}<small>${fmtData(m.data)}</small></span><strong class="${m.tipo==="credito"?"cred":""}">${m.tipo==="credito"?"+":"\u2212"} ${brl(m.valor)}</strong></div>`).join("");
-}
-function rowPrev(m){
-  return `<div class="pitem"><div><div>${m.descricao}</div><small>${fmtData(m.data)} · ${brl(m.valor)}</small></div><button class="plus" type="button" data-id="${m.id}" aria-label="Abrir">+</button></div>`;
-}
-function gravar(o){
-  const s=load();
-  s.movs.push({id:uid(),descricao:o.d,tipo:o.t,valor:Number(o.v)||0,pago:!!o.p,data:o.dt||hojeISO()});
-  save(s); render();
-}
-function abrirBaixa(id){
-  const m=load().movs.find(x=>x.id===id); if(!m) return;
-  baixa.dataset.id=id;
-  bxDesc.textContent=m.descricao;
-  bxMeta.textContent=fmtData(m.data)+" · "+(m.tipo==="credito"?"Receita":"Despesa")+" · "+brl(m.valor);
-  bxCheck.checked=false;
-  baixa.classList.add("open");
-}
+function ehSaldo(t){return /saldo/.test(fold(t))&&/qual|quanto|meu|disponivel/.test(fold(t))}
+function render(){const s=load();const t=tot(s);save(s);saldo.textContent=brl(t.saldo);rec.textContent=brl(t.rec);pag.textContent=brl(t.pag);totDesp.textContent=brl(t.prevD);totRec.textContent=brl(t.prevR);const pend=s.movs.filter(m=>!m.pago);const ok=s.movs.filter(m=>m.pago);colDesp.innerHTML=pend.filter(m=>m.tipo!=="credito").slice().reverse().map(rowPrev).join("")||"<p class='hint'>Nenhuma</p>";colRec.innerHTML=pend.filter(m=>m.tipo==="credito").slice().reverse().map(rowPrev).join("")||"<p class='hint'>Nenhuma</p>";lista.innerHTML=ok.slice().reverse().slice(0,40).map(m=>`<div class="item"><span>${m.descricao}<small>${fmtData(m.data)}</small></span><strong class="${m.tipo==="credito"?"cred":""}">${m.tipo==="credito"?"+":"\u2212"} ${brl(m.valor)}</strong></div>`).join("")}
+function rowPrev(m){return `<div class="pitem"><div><div>${m.descricao}</div><small>${fmtData(m.data)} · ${brl(m.valor)}</small></div><button class="plus" type="button" data-id="${m.id}">+</button></div>`}
+function gravar(o){const s=load();s.movs.push({id:uid(),descricao:o.d,tipo:o.t,valor:Number(o.v)||0,pago:!!o.p,data:o.dt||hojeISO()});save(s);render()}
+function abrirBaixa(id){const m=load().movs.find(x=>x.id===id);if(!m)return;baixa.dataset.id=id;bxDesc.textContent=m.descricao;bxMeta.textContent=fmtData(m.data)+" · "+(m.tipo==="credito"?"Receita":"Despesa")+" · "+brl(m.valor);bxCheck.checked=false;baixa.classList.add("open")}
 boxMan.dt.value=hojeISO();
 tVoz.onclick=()=>{tVoz.classList.add("on");tMan.classList.remove("on");boxVoz.classList.remove("hide");boxMan.classList.add("hide")};
-tMan.onclick=()=>{tMan.classList.add("on");tVoz.classList.remove("on");boxMan.classList.remove("hide");boxVoz.classList.add("hide"); boxMan.dt.value=hojeISO()};
+tMan.onclick=()=>{tMan.classList.add("on");tVoz.classList.remove("on");boxMan.classList.remove("hide");boxVoz.classList.add("hide");boxMan.dt.value=hojeISO()};
 boxMan.onsubmit=e=>{e.preventDefault();const fd=new FormData(boxMan);gravar({d:fd.get("d"),t:fd.get("t"),v:fd.get("v"),p:fd.get("p")==="1",dt:fd.get("dt")});boxMan.reset();boxMan.dt.value=hojeISO();boxMan.p.value="0"};
 cancel.onclick=()=>ov.classList.remove("open");
 rev.onsubmit=e=>{e.preventDefault();const fd=new FormData(rev);gravar({d:fd.get("d"),t:fd.get("t"),v:fd.get("v"),p:fd.get("p")==="1",dt:fd.get("dt")});ov.classList.remove("open")};
 bxClose.onclick=()=>baixa.classList.remove("open");
-bxOk.onclick=()=>{
-  const id=baixa.dataset.id;
-  if(bxCheck.checked){
-    const s=load();
-    const m=s.movs.find(x=>x.id===id);
-    if(m){ m.pago=true; m.data=m.data||hojeISO(); }
-    save(s); render();
-  }
-  baixa.classList.remove("open");
-};
-document.addEventListener("click",e=>{
-  const b=e.target.closest(".plus"); if(!b) return;
-  abrirBaixa(b.dataset.id);
-});
+bxOk.onclick=()=>{const id=baixa.dataset.id;if(bxCheck.checked){const s=load();const m=s.movs.find(x=>x.id===id);if(m){m.pago=true;m.data=m.data||hojeISO()}save(s);render()}baixa.classList.remove("open")};
+document.addEventListener("click",e=>{const b=e.target.closest(".plus");if(b)abrirBaixa(b.dataset.id)});
 function falar(txt){try{const u=new SpeechSynthesisUtterance(txt);u.lang="pt-BR";speechSynthesis.speak(u)}catch(e){}}
-function abrir(txt){
-  if(ehSaldo(txt)){ const t=tot(load()); tr.textContent="Saldo disponível: "+brl(t.saldo); falar("Saldo disponível "+brl(t.saldo)); return; }
-  ovTxt.textContent=txt||"";
-  rev.d.value=parseDesc(txt); rev.t.value=parseTipo(txt); rev.v.value=parseValor(txt)??"";
-  rev.p.value=parsePago(txt)?"1":"0"; rev.dt.value=parseData(txt);
-  ov.classList.add("open");
-}
-mic.onclick=()=>{
-  if(!Rec){tr.textContent="Use o Safari para a voz.";return}
-  const r=new Rec(); r.lang="pt-BR"; r.interimResults=true;
-  mic.classList.add("listen"); tr.textContent="Ouvindo…";
-  r.onresult=ev=>{let fin="",inter=""; for(let i=ev.resultIndex;i<ev.results.length;i++){const x=ev.results[i][0].transcript; if(ev.results[i].isFinal)fin+=x; else inter+=x;} tr.textContent=fin||inter; if(fin){mic.classList.remove("listen"); abrir(fin);}};
-  r.onerror=()=>{mic.classList.remove("listen"); tr.textContent="Não reconheceu.";};
-  r.onend=()=>mic.classList.remove("listen");
-  try{r.start()}catch(e){tr.textContent="Toque de novo.";}
-};
+function abrir(txt){if(ehSaldo(txt)){const t=tot(load());tr.textContent="Saldo disponível: "+brl(t.saldo);falar("Saldo disponível "+brl(t.saldo));return}ovTxt.textContent=txt||"";rev.d.value=parseDesc(txt);rev.t.value=parseTipo(txt);rev.v.value=parseValor(txt)??"";rev.p.value=parsePago(txt)?"1":"0";rev.dt.value=parseData(txt);ov.classList.add("open")}
+mic.onclick=()=>{if(!Rec){tr.textContent="Use o Safari para a voz.";return}const r=new Rec();r.lang="pt-BR";r.interimResults=true;mic.classList.add("listen");tr.textContent="Ouvindo…";r.onresult=ev=>{let fin="",inter="";for(let i=ev.resultIndex;i<ev.results.length;i++){const x=ev.results[i][0].transcript;if(ev.results[i].isFinal)fin+=x;else inter+=x}tr.textContent=fin||inter;if(fin){mic.classList.remove("listen");abrir(fin)}};r.onerror=()=>{mic.classList.remove("listen");tr.textContent="Não reconheceu."};r.onend=()=>mic.classList.remove("listen");try{r.start()}catch(e){tr.textContent="Toque de novo."}};
 render();
-</script>
-</body>
-</html>
+</script></body></html>
