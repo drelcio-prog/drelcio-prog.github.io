@@ -34,7 +34,7 @@ html,body{margin:0;padding:0;width:100%;overflow-x:hidden}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--fg);min-height:100dvh;padding:calc(12px + env(safe-area-inset-top)) 14px calc(24px + env(safe-area-inset-bottom))}
 .app{width:100%;max-width:430px;margin:0 auto}
 .top{display:flex;align-items:center;gap:10px;margin:2px 0 14px}
-.logo-k{width:48px;height:48px;flex:0 0 48px;display:block}
+.logo-k{width:48px;height:48px;flex:0 0 48px}
 .brand{flex:1}
 .brand h1{margin:0;font-size:1.35rem;letter-spacing:-.03em}
 .tag{margin:2px 0 0;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -65,10 +65,8 @@ label{display:grid;gap:4px;font-size:.75rem;color:var(--hint);margin:8px 0}
 .panel.open{display:flex}
 .sheet{width:100%;max-width:430px;margin:0 auto;background:var(--panel);border-radius:20px;padding:14px;max-height:85dvh;overflow:auto}
 .hide{display:none!important}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-.col{background:var(--panel);border-radius:16px;padding:10px;border:1px solid var(--line)}
-.col h3{margin:0;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.col .tot{font-weight:800;margin:6px 0 8px;font-size:.95rem}
+.sum{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px;margin:8px 0}
+.sum small{display:block;margin-top:3px;font-size:.9rem;font-weight:800;color:var(--fg)}
 .pitem{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;padding:8px 0;border-bottom:1px solid var(--line)}
 .pitem:last-child{border-bottom:0}
 .plus{width:28px;height:28px;border:0;border-radius:50%;background:var(--mic);color:#fff;font-size:1.1rem;line-height:28px;padding:0;flex:0 0 28px}
@@ -77,23 +75,25 @@ label{display:grid;gap:4px;font-size:.75rem;color:var(--hint);margin:8px 0}
 h2.sec{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:18px 0 4px}
 </style></head><body>
 <div class="app">
-  <div class="top">
-    <svg class="logo-k" viewBox="0 0 80 80" aria-label="Kashu"><defs><linearGradient id="kg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#0b5c48"/><stop offset=".5" stop-color="#1aa36f"/><stop offset="1" stop-color="#7af0b0"/></linearGradient></defs><path fill="url(#kg)" d="M18 8c0-3 2-6 6-6h10c3 0 6 3 6 6v28l18-16c2-2 6-2 8 0l7 7c2 2 2 6 0 8L52 50l16 18c2 2 2 6 0 8l-7 7c-2 2-6 2-8 0L40 66v8c0 3-3 6-6 6H24c-4 0-6-3-6-6V8z"/><rect x="22" y="46" width="5" height="14" rx="1.5" fill="#8ff0b8"/><rect x="29" y="38" width="5" height="22" rx="1.5" fill="#5fe0a0"/><rect x="36" y="28" width="5" height="32" rx="1.5" fill="#3ccf88"/></svg>
-    <div class="brand"><h1>Kashu</h1><p class="tag">Seu financeiro mais simples</p></div>
-    <button type="button" class="tema" id="palBtn">Cor</button>
-    <button type="button" class="tema" id="temaBtn">Auto</button>
-  </div>
-  <div class="card"><div class="label">Saldo disponível</div><div class="val" id="saldo">R$ 0,00</div><div class="mini"><div><span>Recebido hoje</span><strong id="rec">R$ 0,00</strong></div><div><span>Pago hoje</span><strong id="pag">R$ 0,00</strong></div></div></div>
-  <p class="hint">Sem a palavra “pago” ou “recebido”, o lançamento entra como previsto. Dê baixa no +.</p>
-  <div class="seg"><button type="button" id="tVoz" class="on">Por voz</button><button type="button" id="tMan">Manual</button></div>
-  <div id="boxVoz"><div class="micwrap"><button class="mic" id="mic" type="button">🎤</button></div><p class="hint" id="tr">Toque no microfone</p></div>
-  <form id="boxMan" class="hide"><label>Descrição<input name="d" required></label><div class="g2"><label>Tipo<select name="t"><option value="debito">Despesa</option><option value="credito">Receita</option></select></label><label>Valor<input name="v" type="number" step="0.01" min="0" required inputmode="decimal"></label></div><label>Data do lançamento<input name="dt" type="date" required></label><label>Situação<select name="p"><option value="0" selected>Previsto</option><option value="1">Pago / Recebido</option></select></label><button class="btn" type="submit">Lançar</button></form>
-  <h2 class="sec">Previsto</h2>
-  <div class="cols"><div class="col"><h3>Despesa</h3><div class="tot" id="totDesp">R$ 0,00</div><div id="colDesp"></div></div><div class="col"><h3>Receita</h3><div class="tot cred" id="totRec">R$ 0,00</div><div id="colRec"></div></div></div>
-  <h2 class="sec">Realizado</h2><div id="lista"></div>
+<div class="top">
+<svg class="logo-k" viewBox="0 0 80 80"><defs><linearGradient id="kg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#0b5c48"/><stop offset=".5" stop-color="#1aa36f"/><stop offset="1" stop-color="#7af0b0"/></linearGradient></defs><path fill="url(#kg)" d="M18 8c0-3 2-6 6-6h10c3 0 6 3 6 6v28l18-16c2-2 6-2 8 0l7 7c2 2 2 6 0 8L52 50l16 18c2 2 2 6 0 8l-7 7c-2 2-6 2-8 0L40 66v8c0 3-3 6-6 6H24c-4 0-6-3-6-6V8z"/><rect x="22" y="46" width="5" height="14" rx="1.5" fill="#8ff0b8"/><rect x="29" y="38" width="5" height="22" rx="1.5" fill="#5fe0a0"/><rect x="36" y="28" width="5" height="32" rx="1.5" fill="#3ccf88"/></svg>
+<div class="brand"><h1>Kashu</h1><p class="tag">Seu financeiro mais simples</p></div>
+<button type="button" class="tema" id="palBtn">Cor</button>
+<button type="button" class="tema" id="temaBtn">Auto</button>
+</div>
+<div class="card"><div class="label">Saldo disponível</div><div class="val" id="saldo">R$ 0,00</div><div class="mini"><div><span>Recebido hoje</span><strong id="rec">R$ 0,00</strong></div><div><span>Pago hoje</span><strong id="pag">R$ 0,00</strong></div></div></div>
+<p class="hint">Sem a palavra “pago” ou “recebido”, o lançamento entra como previsto. Dê baixa no +.</p>
+<div class="seg"><button type="button" id="tVoz" class="on">Por voz</button><button type="button" id="tMan">Manual</button></div>
+<div id="boxVoz"><div class="micwrap"><button class="mic" id="mic" type="button">🎤</button></div><p class="hint" id="tr">Toque no microfone</p></div>
+<form id="boxMan" class="hide"><label>Descrição<input name="d" required></label><div class="g2"><label>Tipo<select name="t"><option value="debito">Despesa</option><option value="credito">Receita</option></select></label><label>Valor<input name="v" type="number" step="0.01" min="0" required inputmode="decimal"></label></div><label>Data do lançamento<input name="dt" type="date" required></label><label>Situação<select name="p"><option value="0" selected>Previsto</option><option value="1">Pago / Recebido</option></select></label><button class="btn" type="submit">Lançar</button></form>
+<h2 class="sec">Previsto</h2>
+<div class="sum" id="openDesp"><div><strong>Débitos previstos</strong><small id="totDesp">R$ 0,00</small></div><button class="plus" type="button">+</button></div>
+<div class="sum" id="openRec"><div><strong>Receitas previstas</strong><small class="cred" id="totRec">R$ 0,00</small></div><button class="plus" type="button">+</button></div>
+<h2 class="sec">Realizado</h2><div id="lista"></div>
 </div>
 <div class="panel" id="ov"><div class="sheet"><h3 style="margin:0 0 8px">Revisar</h3><p class="hint" id="ovTxt"></p><form id="rev"><label>Descrição<input name="d" required></label><div class="g2"><label>Tipo<select name="t"><option value="debito">Despesa</option><option value="credito">Receita</option></select></label><label>Valor<input name="v" type="number" step="0.01" min="0" required inputmode="decimal"></label></div><label>Data do lançamento<input name="dt" type="date" required></label><label>Situação<select name="p"><option value="0" selected>Previsto</option><option value="1">Pago / Recebido</option></select></label><button class="btn" type="submit">Confirmar</button><button class="btn ghost" type="button" id="cancel">Cancelar</button></form></div></div>
 <div class="panel" id="palBox"><div class="sheet"><h3 style="margin:0 0 8px">Harmonia de cores</h3><p class="hint">Todas partem do verde Kashu (#1AA36F).</p><div class="pals"><button type="button" class="sw kashu" data-pal="kashu"></button><button type="button" class="sw analoga" data-pal="analoga"></button><button type="button" class="sw complementar" data-pal="complementar"></button><button type="button" class="sw triade" data-pal="triade"></button><button type="button" class="sw quente" data-pal="quente"></button><button type="button" class="sw mono" data-pal="mono"></button></div><p class="hint" id="palNome">Marca Kashu</p><button class="btn ghost" type="button" id="palClose">Fechar</button></div></div>
+<div class="panel" id="prevBox"><div class="sheet"><h3 style="margin:0 0 4px" id="prevTit">Previsto</h3><p class="hint" id="prevTot"></p><div id="prevLista"></div><button class="btn ghost" type="button" id="prevClose">Fechar</button></div></div>
 <div class="panel" id="baixa"><div class="sheet"><h3 style="margin:0 0 8px">Lançamento previsto</h3><p id="bxDesc" style="margin:0 0 4px"></p><p class="hint" id="bxMeta"></p><label class="checkrow"><input type="checkbox" id="bxCheck"> Dar baixa (pago / recebido)</label><button class="btn" type="button" id="bxOk">Salvar</button><button class="btn ghost" type="button" id="bxClose">Fechar</button></div></div>
 <script>
 const KEY="kashu.pages.v2";const THEME="kashu.tema";
@@ -122,7 +122,8 @@ function parseTipo(text){const t=fold(text);if(/credito|receita|recebi|receber|h
 function parsePago(text){const t=fold(text);if(/pendente|previsto|a pagar|a receber/.test(t))return false;return/\b(pago|paguei|pagou|recebido|recebi)\b/.test(t)}
 function parseDesc(text){return String(text||"").replace(/lancar|lance/ig,"").replace(/\b(debito|credito|despesa|receita|pago|recebido|pendente|previsto|hoje|ontem|amanha|reais?|como)\b/ig,"").replace(/\d[\d.,]*/g,"").replace(/\s+/g," ").trim()||"Lançamento"}
 function ehSaldo(t){return /saldo/.test(fold(t))&&/qual|quanto|meu|disponivel/.test(fold(t))}
-function render(){const s=load();const t=tot(s);save(s);saldo.textContent=brl(t.saldo);rec.textContent=brl(t.rec);pag.textContent=brl(t.pag);totDesp.textContent=brl(t.prevD);totRec.textContent=brl(t.prevR);const pend=s.movs.filter(m=>!m.pago);const ok=s.movs.filter(m=>m.pago);colDesp.innerHTML=pend.filter(m=>m.tipo!=="credito").slice().reverse().map(rowPrev).join("")||"<p class='hint'>Nenhuma</p>";colRec.innerHTML=pend.filter(m=>m.tipo==="credito").slice().reverse().map(rowPrev).join("")||"<p class='hint'>Nenhuma</p>";lista.innerHTML=ok.slice().reverse().slice(0,40).map(m=>`<div class="item"><span>${m.descricao}<small>${fmtData(m.data)}</small></span><strong class="${m.tipo==="credito"?"cred":""}">${m.tipo==="credito"?"+":"\u2212"} ${brl(m.valor)}</strong></div>`).join("")}
+function render(){const s=load();const t=tot(s);save(s);saldo.textContent=brl(t.saldo);rec.textContent=brl(t.rec);pag.textContent=brl(t.pag);totDesp.textContent=brl(t.prevD);totRec.textContent=brl(t.prevR);const ok=s.movs.filter(m=>m.pago);lista.innerHTML=ok.slice().reverse().slice(0,40).map(m=>`<div class="item"><span>${m.descricao}<small>${fmtData(m.data)}</small></span><strong class="${m.tipo==="credito"?"cred":""}">${m.tipo==="credito"?"+":"\u2212"} ${brl(m.valor)}</strong></div>`).join("")}
+function listaPrev(tipo){const pend=load().movs.filter(m=>!m.pago&&(tipo==="credito"?m.tipo==="credito":m.tipo!=="credito")).slice().reverse();prevTit.textContent=tipo==="credito"?"Receitas previstas":"Débitos previstos";const totv=pend.reduce((a,m)=>a+(Number(m.valor)||0),0);prevTot.textContent=pend.length?(pend.length+" item(ns) · "+brl(totv)):"Nenhum lançamento";prevLista.innerHTML=pend.map(rowPrev).join("")||"<p class='hint'>Nenhum</p>";prevBox.classList.add("open")}
 function rowPrev(m){return `<div class="pitem"><div><div>${m.descricao}</div><small>${fmtData(m.data)} · ${brl(m.valor)}</small></div><button class="plus" type="button" data-id="${m.id}">+</button></div>`}
 function gravar(o){const s=load();s.movs.push({id:uid(),descricao:o.d,tipo:o.t,valor:Number(o.v)||0,pago:!!o.p,data:o.dt||hojeISO()});save(s);render()}
 function abrirBaixa(id){const m=load().movs.find(x=>x.id===id);if(!m)return;baixa.dataset.id=id;bxDesc.textContent=m.descricao;bxMeta.textContent=fmtData(m.data)+" · "+(m.tipo==="credito"?"Receita":"Despesa")+" · "+brl(m.valor);bxCheck.checked=false;baixa.classList.add("open")}
@@ -134,7 +135,10 @@ cancel.onclick=()=>ov.classList.remove("open");
 rev.onsubmit=e=>{e.preventDefault();const fd=new FormData(rev);gravar({d:fd.get("d"),t:fd.get("t"),v:fd.get("v"),p:fd.get("p")==="1",dt:fd.get("dt")});ov.classList.remove("open")};
 bxClose.onclick=()=>baixa.classList.remove("open");
 bxOk.onclick=()=>{const id=baixa.dataset.id;if(bxCheck.checked){const s=load();const m=s.movs.find(x=>x.id===id);if(m){m.pago=true;m.data=m.data||hojeISO()}save(s);render()}baixa.classList.remove("open")};
-document.addEventListener("click",e=>{const b=e.target.closest(".plus");if(b)abrirBaixa(b.dataset.id)});
+openDesp.onclick=()=>listaPrev("debito");
+openRec.onclick=()=>listaPrev("credito");
+prevClose.onclick=()=>prevBox.classList.remove("open");
+document.addEventListener("click",e=>{const b=e.target.closest("#prevLista .plus");if(b){prevBox.classList.remove("open");abrirBaixa(b.dataset.id)}});
 function falar(txt){try{const u=new SpeechSynthesisUtterance(txt);u.lang="pt-BR";speechSynthesis.speak(u)}catch(e){}}
 function abrir(txt){if(ehSaldo(txt)){const t=tot(load());tr.textContent="Saldo disponível: "+brl(t.saldo);falar("Saldo disponível "+brl(t.saldo));return}ovTxt.textContent=txt||"";rev.d.value=parseDesc(txt);rev.t.value=parseTipo(txt);rev.v.value=parseValor(txt)??"";rev.p.value=parsePago(txt)?"1":"0";rev.dt.value=parseData(txt);ov.classList.add("open")}
 mic.onclick=()=>{if(!Rec){tr.textContent="Use o Safari para a voz.";return}const r=new Rec();r.lang="pt-BR";r.interimResults=true;mic.classList.add("listen");tr.textContent="Ouvindo…";r.onresult=ev=>{let fin="",inter="";for(let i=ev.resultIndex;i<ev.results.length;i++){const x=ev.results[i][0].transcript;if(ev.results[i].isFinal)fin+=x;else inter+=x}tr.textContent=fin||inter;if(fin){mic.classList.remove("listen");abrir(fin)}};r.onerror=()=>{mic.classList.remove("listen");tr.textContent="Não reconheceu."};r.onend=()=>mic.classList.remove("listen");try{r.start()}catch(e){tr.textContent="Toque de novo."}};
